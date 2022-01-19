@@ -1,2 +1,5 @@
 const User = require('./User');
-const Trails = require('./Trails');
+// const Trail = require('./Trail');
+
+
+module.exports = { User };

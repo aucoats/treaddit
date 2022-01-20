@@ -31,14 +31,24 @@ Trail.init(
             type: DataTypes.STRING, 
             allowNull: false
         },
+        description: {
+            type: DataTypes.STRING, 
+            allowNull: false
+        },
         user_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
+            type: DataTypes.INTEGER, 
+            allowNull: true, 
             references: {
-                model: 'user',
+                model: 'user', 
                 key: 'id'
             }
         }
+    },
+    {
+        sequelize,
+        freezeTableName: true, 
+        underscored: true, 
+        modelName: 'trail'
     }
 )
 

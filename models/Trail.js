@@ -27,14 +27,24 @@ Trail.init(
             type: DataTypes.STRING, 
             allowNull: false
         },
-        posted_by: {
+        description: {
             type: DataTypes.STRING, 
+            allowNull: false
+        },
+        posted_by: {
+            type: DataTypes.INTEGER, 
             allowNull: true, 
             references: {
                 model: 'user', 
                 key: 'id'
             }
         }
+    },
+    {
+        sequelize,
+        freezeTableName: true, 
+        underscored: true, 
+        modelName: 'trail'
     }
 )
 

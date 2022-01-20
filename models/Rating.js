@@ -3,36 +3,45 @@ const sequelize = require('../config/connection');
 
 class Rating extends Model {} 
 
-Rating.init({
-    id: {
-        type: DataTypes.INTEGER, 
-        allowNull: false, 
-        autoIncrement: true,
+Rating.init(
+    {
+        id: {
+            type: DataTypes.INTEGER, 
+            allowNull: false, 
+            autoIncrement: true,
+            primaryKey: true
+        }, 
+        rating: {
+            type: DataTypes.INTEGER, 
+            allowNull: false, 
+            validate: {
+                min: 1, 
+                max: 5
+            }
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false, 
+            references: {
+                model: 'user', 
+                key: 'id'
+            }
+        },
+        trail_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false, 
+            references: {
+                model: 'trail',
+                key: 'id'
+            }
+        }
     }, 
-    rating: {
-        type: DataTypes.INTEGER, 
-        allowNull: false, 
-        validate: {
-            min: 1, 
-            max: 5
-        }
-    },
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false, 
-        references: {
-            model: 'user', 
-            key: 'id'
-        }
-    },
-    trail_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false, 
-        references: {
-            model: 'trail',
-            key: 'id'
-        }
+    {
+        sequelize, 
+        freezeTableName: true, 
+        underscored: true, 
+        modelName: 'rating'
     }
-});
+);
 
 module.exports = Rating; 

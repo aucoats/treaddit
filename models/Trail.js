@@ -26,6 +26,14 @@ Trail.init(
         difficulty: {
             type: DataTypes.STRING, 
             allowNull: false
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'user',
+                key: 'id'
+            }
         }
     }
 )

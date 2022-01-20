@@ -1,5 +1,5 @@
 const User = require('./User');
-// const Trail = require('./Trail');
+const Trail = require('./Trail');
 
 
-module.exports = { User };
+module.exports = { User, Trail };

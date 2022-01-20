@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
             'name',
             'length',
             'dog_friendly',
+            'bike_friendly',
             'difficulty'
         ],
         include: [
@@ -34,6 +35,7 @@ router.get('/:id', (req, res) => {
             'name',
             'length',
             'dog_friendly',
+            'bike_friendly',
             'difficulty'
         ],
         include: [
@@ -76,6 +78,7 @@ router.put('/:id', (req, res) => {
             name: req.body.name,
             length: req.body.length,
             dog_friendly: req.body.dog_friendly,
+            bike_friendly: req.body.bike_friendly,
             difficulty: req.body.difficulty
         },
         {

@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
             'length',
             'dog_friendly',
             'bike_friendly',
-            'difficulty'
+            'difficulty',
+            'description'
         ],
         include: [
             {
@@ -36,7 +37,8 @@ router.get('/:id', (req, res) => {
             'length',
             'dog_friendly',
             'bike_friendly',
-            'difficulty'
+            'difficulty',
+            'description'
         ],
         include: [
             {
@@ -63,7 +65,8 @@ router.post('/', (req, res) => {
         name: req.body.name,
         length: req.body.length,
         dog_friendly: req.body.dog_friendly,
-        difficulty: req.body.difficulty
+        difficulty: req.body.difficulty,
+        description: req.body.description
     })
     .then(dbTrailData => res.json(dbTrailData))
     .catch(err => {
@@ -79,7 +82,8 @@ router.put('/:id', (req, res) => {
             length: req.body.length,
             dog_friendly: req.body.dog_friendly,
             bike_friendly: req.body.bike_friendly,
-            difficulty: req.body.difficulty
+            difficulty: req.body.difficulty,
+            description: req.body.description
         },
         {
             where: {

@@ -5,12 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treaddit</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 
-<body>
-  <p>Success!</p>
-  {{{ body }}}
+<body style="padding: 2%;">
+  <header>
+
+    <nav class="navbar">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <button class="btn navbar-btn" ><span class="glyphicon glyphicon-user"></span> Login </button>
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="text-center">
+      <h3> Treaddit </h3>
+      <p class="text-success"> " I could never resist the call of the Trail " </p>
+    </div>
+
+  </header>
+
+  <main style="padding: 5%;">
+    {{{ body }}}
+  </main>
+  
 </body>
 
 </html>

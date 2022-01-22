@@ -1,1 +1,13 @@
-<p>Homepage!</p>
+
+  <div class="row text-center">
+    {{#each trails }}
+    <div class="col-sm-4">
+        <div class="thumbnail" style="background-color: #d2dee0ff;">
+            <p><strong>{{name}}</strong></p>
+            <p>Miles: {{length}} | Difficulty: {{difficulty}}</p>
+            <p>{{description}}</p>
+            <button class="btn btn-default">Find Trail </button>
+        </div>
+    </div>
+    {{/each}}
+  </div>

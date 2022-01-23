@@ -2,6 +2,7 @@ const User = require('./User');
 const Trail = require('./Trail');
 const Rating = require('./Rating');
 const Favorite = require('./Favorite');
+const Comment = require('./Comment')
 
 
 User.hasMany(Trail, {
@@ -64,5 +65,23 @@ Rating.belongsTo(Trail, {
     foreignKey: 'trail_id'
 });
 
+Comment.belongsTo(User, {
+    foreignKey: 'user_id',
+    onDelete: 'SET NULL'
+});
 
-module.exports = { User, Trail, Rating, Favorite };
+Comment.belongsTo(Trail, {
+    foreignKey: 'trail_id',
+    onDelete: 'SET NULL'
+});
+
+User.hasMany(Comment, {
+    foreignKey: 'user_id',
+    onDelete: 'SET NULL'
+});
+
+Trail.hasMany(Comment, {
+    foreignKey: 'trail_id'
+});
+
+module.exports = { User, Trail, Rating, Favorite, Comment };

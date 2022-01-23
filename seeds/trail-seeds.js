@@ -1,20 +1,34 @@
 const sequelize = require('../config/connection');
-const { Trail } = require('../models');
 const faker = require('@faker-js/faker');
+const { User, Trail } = require('../models');
 
-const traildata = [ 
+const trailData = [
     {
-        id: 1,
-        name: "California Trail",
-        length: 5,
-        dog_friendly: true,
-        bike_friendly: true,
-        difficulty: "Moderate",
-        description: "Beautiful beach trail in Northern California",
-        user_id: 1
+        name: `${faker.address.county()}${faker.animal.type()}`,
+        length: `${faker.datatype.number()}`,
+        dog_friendly: `${faker.datatype.boolean()}`,
+        difficulty: faker.helpers.randomize([1, 2, 3, 4, 5]),
+        description: `${faker.lorem.sentences()}`,
+        posted_by: 1,
+    },
+    {
+        name: `${faker.address.county()}${faker.animal.type()}`,
+        length: `${faker.datatype.number()}`,
+        dog_friendly: `${faker.datatype.boolean()}`,
+        difficulty: faker.helpers.randomize([1, 2, 3, 4, 5]),
+        description: `${faker.lorem.sentences()}`,
+        posted_by: 1,
+    },
+    {
+        name: `${faker.address.county()}${faker.animal.type()}`,
+        length: `${faker.datatype.number()}`,
+        dog_friendly: `${faker.datatype.boolean()}`,
+        difficulty: faker.helpers.randomize([1, 2, 3, 4, 5]),
+        description: `${faker.lorem.sentences()}`,
+        posted_by: 1,
     }
 ]
 
-const seedTrails = () => Trail.bulkCreate(traildata);
+const seedTrails = () => Trail.bulkCreate(trailData);
 
 module.exports = seedTrails; 

@@ -11,12 +11,17 @@ router.get('/', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty'
+        ], include: [
+            {
+                model: User,
+                attributes: ['username']
+            }
         ]
     })
     .then(dbTrailData => {
         //pass trails through homepage template
-        //const trails = dbTrailData.map(trail => trail.get({plain: true}));
-        res.render('homepage', dbTrailData[0].get({plain: true}));
+        const trails = dbTrailData.map(trail => trail.get({plain: true}));
+        res.render('homepage', trails);
         
     })
     .catch(err => {

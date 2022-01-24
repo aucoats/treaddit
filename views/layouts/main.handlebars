@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treaddit</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" src="../../public/css/stylesheet.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -19,7 +20,7 @@
         <!-- display fav, add trail btn, and login btn-->
         <ul class="nav navbar-nav navbar-right">
           <button id="favorite-btn" class="btn navbar-btn" > Favorites <span class="glyphicon glyphicon-heart"></span></button>
-          <button id="add-trail-btn" class="btn navbar-btn" ><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
+          <button id="add-trail-btn" class="btn navbar-btn" data-toggle="modal" data-target="#addTrailModal"><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
           <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
         </ul>
       </div>
@@ -27,8 +28,8 @@
     
     <!-- App name and slogan -->
     <div class="text-center">
-      <h3> Treaddit </h3>
-      <p class="text-success"> " I could never resist the call of the Trail " </p>
+      <h2> Treaddit </h2>
+      <h4 class="text-success"> " I could never resist the call of the Trail " </h4>
     </div>
   </header>
 
@@ -48,43 +49,57 @@
           <div class="text-center">
               <form id="login_form">
                 <div class="form-inline">
-                  <div class="input-group">
-                  <input type="text" id="login_email" name="login_email" placeholder="Email@Email.com" />
-                  </div>
-                  <div class="input-group">
-                    <input type="password" id="login_password" name="login_password" placeholder="Password"/>
-                  </div>
+                  <div class="input-group"><input type="text" id="login_email" name="login_email" placeholder="Email@Email.com" /></div>
+                  <div class="input-group"><input type="password" id="login_password" name="login_password" placeholder="Password" /></div>
                 </div></br>
-                <div>
-                  <button class="btn btn-success" value="Log In" type="submit">Sign In</button>
-                </div>
+                <div><button class="btn btn-success" style="background-color: #809712ff;" value="Log In" type="submit">Sign In</button></div>
               </form>
           </div>
 
           <h3 class="text-center"><small>Don't have an account? Sign up below! </small></h3>
           <!-- Sign up form -->
           <form id="create_user_form" class="text-center">
-            <div>
-              <input type="text" id="create_username" name="create_username" placeholder="User Name" />
-            </div></br>
-            <div>
-              <input type="text" id="create_email" name="create_email" placeholder="Email@Email.com" />
-            </div></br>
-            <div>
-              <input type="password" id="create_password" name="create_password" placeholder="Create Password" />
-            </div></br>
-            <div>
-              <button class="btn btn-success" type="submit" value="Create User">Create Account</button>
-            </div>
+            <div><input type="text" id="create_username" name="create_username" placeholder="User Name" /></div></br>
+            <div><input type="text" id="create_email" name="create_email" placeholder="Email@Email.com" /></div></br>
+            <div><input type="password" id="create_password" name="create_password" placeholder="Create Password" /></div></br>
+            <div><button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create User">Create Account</button></div>
           </form>
         </div>
-
         <div class="modal-footer"></div>
 
       </div> 
     </div>
   </div>
 
+  <!-- Add Trail Modal -->
+  <div class="modal fade" id="addTrailModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Login Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><small>Create New Trail</small></h4>
+        </div>
+
+        <div class="modal-body">
+          <!-- Create New Trail -->
+          <form id="create_trail_form" class="text-center">
+            <div><input type="text" id="trail_name" name="trail_name" placeholder="Trail Name" /></div></br>
+            <div><input type="text" id="trail_length" name="trail_length" placeholder="Miles" /></div></br>
+            <div><input type="checkbox" id="dog_friendly" name="dog_friendly"/><p>Animal Friendly</p></div></br>
+            <div><input type="text" id="difficulty" name="difficulty" placeholder="Difficulty"></div></br>
+            <div><input type="text" id="description" name="description" placeholder="Brief trail description..."></div></br>
+          </form>
+        </div>
+
+        <div class="modal-footer"><div><button class="btn btn-success close" style="background-color: #809712ff;" type="submit" value="Create Trail" data-dismiss="modal">Add New Trail</button></div></div>
+
+      </div> 
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
   <section>
     <div class="text-center" style="padding: 20px;">
         <form class="form-inline">
@@ -93,13 +108,14 @@
           </div>
           <div class="input-group">
             <div class="input-group-btn">
-              <button class="btn btn-success" type="submit">Find Trail <i class="glyphicon glyphicon-search"></i></button>
+              <button class="btn btn-success" style="background-color: #809712ff;" type="submit">Find Trail <i class="glyphicon glyphicon-search"></i></button>
             </div>
           </div>
         </form>
     </div>
   </section>
 
+  <!-- Trail body -->
   <main style="padding: 5%;">
     {{{ body }}}
   </main>

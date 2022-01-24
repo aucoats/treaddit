@@ -12,12 +12,12 @@ router.get('/', (req, res) => {
             'difficulty',
             'description'
         ],
-        include: [
-            {
-                model: User,
-                attributes: ['username']
-            }
-        ]
+        // include: [
+        //     {
+        //         model: User,
+        //         attributes: ['username']
+        //     }
+        // ]
     })
     .then(dbTrailData => res.json(dbTrailData))
     .catch(err => {

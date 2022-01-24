@@ -1,12 +1,15 @@
-<div class="row text-center">
-    {{#each trails }}
-    <div class="col-sm-4">
-        <div class="thumbnail" style="background-color: #d2dee0ff;">
-            <p><strong>{{name}}</strong></p>
-            <p>Miles: {{length}} | Difficulty: {{difficulty}}</p>
-            <p>{{description}}</p>
-            <button class="btn btn-default">Find Trail </button>
+<div class="row">
+    <div class="col-sm-4" style="background-color: #d2dee0ff; padding: 20px">
+        <div class="text-center">
+            <p class="text-center"><strong>{{name}}</strong></p><br>
+                <a href="#demo{{id}}" data-toggle="collapse">
+                    <img src="../../public/img/example.jpg" class="img-circle" alt="Trail Image" width="255" height="255">
+                </a><br>
+                <div id="demo{{id}}" class="collapse">
+                    <p>Miles: {{length}}</p>
+                    <p>Difficulty: {{difficulty}}</p>
+                    <p>{{description}}</p>
+                </div>
         </div>
     </div>
-    {{/each}}
 </div>

@@ -12,12 +12,12 @@ router.get('/', (req, res) => {
             'difficulty',
             'description'
         ],
-        include: [
-            {
-                model: User,
-                attributes: ['username']
-            }
-        ]
+        // include: [
+        //     {
+        //         model: User,
+        //         attributes: ['username']
+        //     }
+        // ]
     })
     .then(dbTrailData => res.json(dbTrailData))
     .catch(err => {
@@ -65,6 +65,7 @@ router.post('/', (req, res) => {
         name: req.body.name,
         length: req.body.length,
         dog_friendly: req.body.dog_friendly,
+        bike_friendly: req.body.bike_friendly,
         difficulty: req.body.difficulty,
         description: req.body.description
     })

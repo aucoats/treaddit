@@ -87,7 +87,16 @@
           <form id="create_trail_form" class="text-center">
             <div><input type="text" id="trail_name" name="trail_name" placeholder="Trail Name" /></div></br>
             <div><input type="text" id="trail_length" name="trail_length" placeholder="Miles" /></div></br>
-            <div><input type="checkbox" id="dog_friendly" name="dog_friendly"/><p>Animal Friendly</p></div></br>
+
+            <div>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="dog_friendly" name="dog_friendly">Dog Friendly
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" id="dog_friendly" name="dog_friendly">Bike Friendly
+              </label>
+            </div><br>
+
             <div><input type="text" id="difficulty" name="difficulty" placeholder="Difficulty"></div></br>
             <div><input type="text" id="description" name="description" placeholder="Brief trail description..."></div></br>
           </form>

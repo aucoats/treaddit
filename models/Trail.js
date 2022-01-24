@@ -23,6 +23,10 @@ Trail.init(
             type: DataTypes.BOOLEAN, 
             allowNull: true, 
         },
+        bike_friendly: {
+            type: DataTypes.BOOLEAN, 
+            allowNull: true,             
+        },
         difficulty: {
             type: DataTypes.STRING, 
             allowNull: false
@@ -31,7 +35,7 @@ Trail.init(
             type: DataTypes.STRING, 
             allowNull: false
         },
-        posted_by: {
+        user_id: {
             type: DataTypes.INTEGER, 
             allowNull: true, 
             references: {

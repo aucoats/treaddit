@@ -12,7 +12,7 @@ Trail.init(
             autoIncrement: true
         },
         name: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false, 
         }, 
         length: {

@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
         dog_friendly: true,
         bike_frienldy: false,
         difficulty: "Moderate",
-        description: "This is a description example.",
+        description: "This is a description example. This is a description example. This is a description example.",
     });
 });
 

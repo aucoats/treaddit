@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
         id: 1,
         name: "California Trail",
         length: 5,
-        dog_friendly: true,
-        bike_frienldy: false,
+        dog_friendly: false,
+        bike_friendly: true,
         difficulty: "Moderate",
         description: "This is a description example. This is a description example. This is a description example.",
     });

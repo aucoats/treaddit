@@ -113,3 +113,15 @@ createTrailForm.addEventListener('submit', async (e) => {
     // function to update the DOM
     console.log(data);
 });
+
+Handlebars.registerHelper("difficultyLevel", function(difficulty) {
+    if(difficulty === "Easy"){
+        return "default";
+    } 
+    if(difficulty === "Moderate"){
+        return "warning";
+    }
+    if(difficulty === "Difficult") {
+        return "danger";
+    }
+});

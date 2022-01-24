@@ -6,14 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treaddit</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body style="padding: 2%;">
   <header>
-
     <nav class="navbar">
       <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right">
+          <button class="btn navbar-btn" > Favorites <span class="glyphicon glyphicon-heart"></span></button>
+          <button class="btn navbar-btn" ><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
           <button class="btn navbar-btn" ><span class="glyphicon glyphicon-user"></span> Login </button>
         </ul>
       </div>
@@ -23,8 +26,22 @@
       <h3> Treaddit </h3>
       <p class="text-success"> " I could never resist the call of the Trail " </p>
     </div>
-
   </header>
+
+  <section>
+    <div class="text-center" style="padding: 20px;">
+        <form class="form-inline">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Trail Name" name="searchName">
+          </div>
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button class="btn btn-success" type="submit">Find Trail <i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </section>
 
   <main style="padding: 5%;">
     {{{ body }}}

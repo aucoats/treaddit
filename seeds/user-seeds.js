@@ -12,8 +12,13 @@ const userdata = [
         username: `${faker.animal.type()}${faker.commerce.product()}`,
         email: `${faker.internet.email()}`,
         password: 'password123'
+    },
+    {
+        username: `${faker.animal.type()}${faker.commerce.product()}`,
+        email: `${faker.internet.email()}`,
+        password: 'password123'
 
-    }
+    },
 
 
 ];

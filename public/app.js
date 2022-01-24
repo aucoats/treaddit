@@ -114,3 +114,20 @@ createTrailForm.addEventListener('submit', async (e) => {
     // function to update the DOM
     console.log(data);
 });
+
+
+//get trail
+//generates array displayTrail populated with all extant trails
+const displayTrail = fetch('api/trails')
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+    return data
+})
+.catch(err => console.log(err));
+
+
+//update user
+
+
+//update trail

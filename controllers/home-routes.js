@@ -25,5 +25,20 @@ router.get('/', (req, res) => {
 
 });
 
+const exphbs = require('express-handlebars');
+const helpers = require('../utils/helpers')
+const hbs = exphbs.create({ helpers });
+
+hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
+    if(difficulty == "Easy"){
+        return "default"
+    }
+    if(difficulty == "Moderate"){
+        return "warning"
+    }
+    if(difficulty == "Difficult"){
+        return "danger"
+    }
+});
 
 module.exports = router; 

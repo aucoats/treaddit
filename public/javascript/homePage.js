@@ -113,4 +113,4 @@ createTrailForm.addEventListener('submit', async (e) => {
     // function to update the DOM
     console.log(data);
 });
-
+ 

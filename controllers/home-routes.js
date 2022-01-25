@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
         attributes: [
             'id',
             'name',
+            'length',
             'dog_friendly',
             'bike_friendly',
             'difficulty',

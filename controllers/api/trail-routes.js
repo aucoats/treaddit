@@ -40,14 +40,14 @@ const uploadTrailImage = (trailImage) => {
       });
 }
 
-function downloadTrailImage(img_ref) {
+async function downloadTrailImage(img_ref) {
   
     // [START storage_download_full_example]
     // Create a reference to the file we want to download
     var starsRef = storageRef.child(img_ref);
   
     // Get the download URL
-    return starsRef.getDownloadURL()
+    return await starsRef.getDownloadURL()
     .then((url) => {
       // Insert url into an <img> tag to "download"
       console.log(url);
@@ -99,14 +99,25 @@ router.get('/', (req, res) => {
     })
     .then((dbTrailData) => {
         console.log('dbTrailData:', dbTrailData)
-        console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)  
-              // var img_ref = dbTrailData.trail.dataValues.img_ref;
-        // var img_url = downloadTrailImage(img_ref);
+        console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)
+          
+        var img_ref = dbTrailData[0].dataValues.img_ref;
+        downloadTrailImage(img_ref).then(response => {
+            var img_url = response; 
+            dbTrailData[0].dataValues.push(img_url);
+            return dbTrailData;
+        })
+
+        // console.log('dbTrailData:', dbTrailData)
+        // console.log('img_url:', img_url)
         // dbTrailData.trail.dataValues.push(img_url);
         // retrieve image from DB 
         // create storage reference
         // pull image from reference 
-        res.json(dbTrailData)
+        
+    })
+    .then(dbTrailResponse => {
+        res.json(dbTrailResponse)
     })
     .catch(err => {
         console.log(err);

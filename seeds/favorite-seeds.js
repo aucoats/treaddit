@@ -33,4 +33,4 @@ const favData = [
 
 const seedFavorites = () => Favorite.bulkCreate(favData);
 
-module.exports = seedFavorites; 
+module.exports = seedFavorites;

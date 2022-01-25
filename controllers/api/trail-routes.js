@@ -8,6 +8,7 @@ const upload = multer();
 // gs://treaddit.appspot.com/trails/project3.jpg
 
 const { Trail, User, Comment, Rating } = require('../../models');
+const sequelize = require('../../config/connection');
 const Sequelize = require('sequelize');
 const withAuth = require('../../utils/auth');
 
@@ -111,16 +112,19 @@ router.get('/', (req, res) => {
             // }
         ]
     })
-    .then((dbTrailData) => {
+    .then(dbTrailData => {
         console.log('dbTrailData:', dbTrailData)
         console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)
           
-        var img_ref = dbTrailData[0].dataValues.img_ref;
-        downloadTrailImage(img_ref).then(response => {
-            var img_url = response; 
-            dbTrailData[0].dataValues.push(img_url);
-            return dbTrailData;
-        })
+        // var img_ref = dbTrailData[0].dataValues.img_ref;
+        // await downloadTrailImage(img_ref).then(response => {
+        //     dbTrailData[0].dataValues.img_ref = response;
+        //     return dbTrailData;
+        //     // if (document.querySelector(".img-circle")) {
+        //     //     var imgElement = document.querySelector(".img-circle");
+        //     //     imgElement.src=img_url;
+        //     // } 
+        // })
 
         // console.log('dbTrailData:', dbTrailData)
         // console.log('img_url:', img_url)
@@ -128,10 +132,7 @@ router.get('/', (req, res) => {
         // retrieve image from DB 
         // create storage reference
         // pull image from reference 
-        
-    })
-    .then(dbTrailResponse => {
-        res.json(dbTrailResponse)
+        res.json(dbTrailData);
     })
     .catch(err => {
         console.log(err);
@@ -312,4 +313,4 @@ router.delete('/:id', withAuth, (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router, storageRef, downloadTrailImage;

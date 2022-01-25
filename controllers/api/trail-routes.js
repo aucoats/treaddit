@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { Trail, User, Comment, Rating } = require('../../models');
+const Sequelize = require('sequelize');
+const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
     Trail.findAll({
@@ -11,8 +13,8 @@ router.get('/', (req, res) => {
             'bike_friendly',
             'difficulty',
             'description',
-            [Sequelize.fn('AVG', Sequelize.col('rating.rating')), 'avgRating']
         ],
+        group: 'id',
         include: [
             {
                 model: Comment,
@@ -23,22 +25,44 @@ router.get('/', (req, res) => {
                 }
             },
             {
-                model: Rating.rating,
-                as: avgRating,
-                attributes: []
-            },
-            {
-                model: User,
-                attributes: ['username']
+                model: Rating,
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
             }
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
         ]
     })
-    .then(dbTrailData => res.json(dbTrailData))
+    .then(dbTrailData => { 
+        res.json(dbTrailData);
+        })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 });
+
+// router.get('/trailavg/:id', (req, res) => {
+//     Trail.findOne({
+//         where: {
+//             id: req.params.id
+//         },
+//         attributes: [
+//             [Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating'],
+//         ],
+//         include: [
+//             {
+//               model: Rating,
+//             }
+//         ],
+//         raw: true,
+//         group: ['Trail.id'],
+//     })
+//     .then(dbTrailData => { 
+//         res.json(dbTrailData);
+//     });
+// });
 
 router.get('/:id', (req, res) => {
     Trail.findOne({
@@ -52,8 +76,7 @@ router.get('/:id', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
-            'description',
-            [Sequelize.fn('AVG', Sequelize.col('rating.rating')), 'avgRating']
+            'description'
         ],
         include: [
             {
@@ -65,9 +88,13 @@ router.get('/:id', (req, res) => {
                 }
             },
             {
-                model: User,
-                attributes: ['username']
-            }
+                model: Rating,
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
         ]
     })
     .then(dbTrailData => {
@@ -83,11 +110,13 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
+
     Trail.create({
         name: req.body.name,
         length: req.body.length,
         dog_friendly: req.body.dog_friendly,
+        bike_friendly: req.body.bike_friendly,
         difficulty: req.body.difficulty,
         description: req.body.description
     })
@@ -98,7 +127,44 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+
+router.post('/rating/:id', withAuth, (req, res) => {
+
+    Rating.create({
+        rating: req.body.rating,
+        trail_id: req.params.id,
+        user_id: req.session.user_id
+    })
+    .then(ratingData => res.json(ratingData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+router.put('/rating/:id', withAuth, (req, res) => {
+    console.log(req.body);
+    Rating.update(req.body, {
+        where: {
+            id: req.params.id,
+            user_id: req.session.user_id
+        }
+    })
+    .then(dbTrailData => {
+        if(!dbTrailData) {
+            res.status(404).json({ message: 'No Rating found with this id' });
+            return;
+        }
+        res.json(dbTrailData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+})
+
+
+router.put('/:id', withAuth, (req, res) => {
     Trail.update(
         {
             name: req.body.name,
@@ -127,7 +193,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
     Trail.destroy({
         where: {
             id: req.params.id

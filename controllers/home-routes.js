@@ -22,16 +22,6 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
     });
 
-/*    res.render('homepage', {
-        id: 1,
-        name: "California Trail",
-        length: 5,
-        dog_friendly: false,
-        bike_friendly: true,
-        difficulty: "Moderate",
-        description: "This is a description example. This is a description example. This is a description example.",
-    });
-*/
 });
 
 

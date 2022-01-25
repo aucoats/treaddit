@@ -1,10 +1,12 @@
 const router = require('express').Router();
+const { download } = require('express/lib/response');
 const firebase = require('firebase');
 const multer  = require('multer');
 const upload = multer();
 
 // image prefix to Trail filepath store ** CONCAT WITH SNAPSHOT BELOW ** 
-// gs://treaddit.appspot.com/trails 
+// gs://treaddit.appspot.com/trails/project3.jpg
+
 
 const { Trail, User } = require('../../models');
 
@@ -38,6 +40,44 @@ const uploadTrailImage = (trailImage) => {
       });
 }
 
+function downloadTrailImage(img_ref) {
+  
+    // [START storage_download_full_example]
+    // Create a reference to the file we want to download
+    var starsRef = storageRef.child(img_ref);
+  
+    // Get the download URL
+    return starsRef.getDownloadURL()
+    .then((url) => {
+      // Insert url into an <img> tag to "download"
+      console.log(url);
+      return url;
+    //   <img src="url"></img>
+    })
+    .catch((error) => {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case 'storage/object-not-found':
+          // File doesn't exist
+          break;
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+  
+        // ...
+  
+        case 'storage/unknown':
+          // Unknown error occurred, inspect the server response
+          break;
+      }
+    });
+}
+
+
 router.get('/', (req, res) => {
     Trail.findAll({
         attributes: [
@@ -47,7 +87,8 @@ router.get('/', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
-            'description'
+            'description',
+            'img_ref'
         ],
         // include: [
         //     {
@@ -57,6 +98,11 @@ router.get('/', (req, res) => {
         // ]
     })
     .then((dbTrailData) => {
+        console.log('dbTrailData:', dbTrailData)
+        console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)  
+              // var img_ref = dbTrailData.trail.dataValues.img_ref;
+        // var img_url = downloadTrailImage(img_ref);
+        // dbTrailData.trail.dataValues.push(img_url);
         // retrieve image from DB 
         // create storage reference
         // pull image from reference 

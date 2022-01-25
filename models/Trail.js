@@ -35,6 +35,10 @@ Trail.init(
             type: DataTypes.STRING, 
             allowNull: false
         },
+        img_ref: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         user_id: {
             type: DataTypes.INTEGER, 
             allowNull: true, 

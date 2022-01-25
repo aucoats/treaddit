@@ -2,9 +2,9 @@ const sequelize = require('../config/connection');
 
 const seedUsers = require('./user-seeds');
 const seedTrails = require('./trail-seeds');
-const seedRatings = require('./rating-seeds');
-const seedFavorites = require('./favorite-seeds');
-const seedComments = require('./comment-seeds');
+// const seedRatings = require('./rating-seeds');
+// const seedFavorites = require('./favorite-seeds');
+// const seedComments = require('./comment-seeds');
 
 
 
@@ -15,11 +15,11 @@ const seedAll = async () => {
     console.log('--------------');
     await seedTrails();
     console.log('--------------');
-    await seedRatings();
+    // await seedRatings();
     console.log('--------------');
-    await seedFavorites();
+    // await seedFavorites();
     console.log('--------------');
-    await seedComments();
+    // await seedComments();
     process.exit(0);
 };
   

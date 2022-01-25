@@ -31,13 +31,37 @@ const hbs = exphbs.create({ helpers });
 
 hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
     if(difficulty == "Easy"){
-        return "default"
+        return "success"
     }
     if(difficulty == "Moderate"){
         return "warning"
     }
     if(difficulty == "Difficult"){
         return "danger"
+    }
+});
+
+hbs.handlebars.registerHelper('multiof4', function(id) {
+    var remainder = id % 4;
+    
+    if (id == 1){
+        return true;
+    } else {
+        if (remainder == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+});
+
+hbs.handlebars.registerHelper('multiof3', function(id) {
+    var remainder = id % 3;
+    
+    if(remainder == 0) {
+        return true;
+    } else { 
+        return false;
     }
 });
 

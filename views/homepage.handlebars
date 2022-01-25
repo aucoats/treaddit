@@ -1,6 +1,7 @@
-
-        {{#each trails as |trail|}}
-        <div class="col-sm-6 deck" style="background-color: #d2dee0ff; padding: 10px">
+<div class="container-fluid">
+    {{#each trails as |trail|}}
+    {{#if (multiof4 id)}}<div class="row">{{/if}}
+        <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
                     <div class="container-fluid">
@@ -8,7 +9,7 @@
                         <h5>{{name}}</h5>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
-                        <button id="favorite-btn" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
+                        <button id="{{id}}" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
                         </ul>
                     </div>
                 </nav>
@@ -31,5 +32,6 @@
                     </div>
             </div>
         </div>
-        {{/each}}
-
+    {{#if (multiof3 id)}}</div>{{/if}}
+    {{/each}}
+</div>

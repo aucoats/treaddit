@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treaddit</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../public/css/stylesheet.css">
+  <link rel="stylesheet" href="/css/stylesheet.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -49,10 +49,10 @@
           <div class="text-center">
               <form id="login_form">
                 <div class="form-inline">
-                  <div class="input-group"><input type="text" id="login_email" name="login_email" placeholder="Email@Email.com" /></div>
+                  <div class="input-group"><input type="email" id="login_email" name="login_email" placeholder="Email@Email.com" /></div>
                   <div class="input-group"><input type="password" id="login_password" name="login_password" placeholder="Password" /></div>
                 </div></br>
-                <div><button class="btn btn-success" style="background-color: #809712ff;" value="Log In" type="submit">Sign In</button></div>
+                <div><button class="btn btn-success" style="background-color: #809712ff;" id="login_btn" value="Log In" type="submit">Sign In</button></div>
               </form>
           </div>
 
@@ -99,10 +99,12 @@
 
             <div><input type="text" id="difficulty" name="difficulty" placeholder="Difficulty"></div></br>
             <div><input type="text" id="description" name="description" placeholder="Brief trail description..."></div></br>
+            <button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create Trail">Add New Trail</button>
           </form>
+            
+
         </div>
 
-        <div class="modal-footer"><div><button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create Trail" data-dismiss="modal">Add New Trail</button></div></div>
 
       </div> 
     </div>
@@ -129,6 +131,7 @@
     {{{ body }}}
   </main>
   
+  <script type="text/javascript" src="/javascript/homePage.js"></script>
 </body>
-<script src="../../public/javascript/homePage.js"></script>
+
 </html>

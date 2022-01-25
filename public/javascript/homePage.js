@@ -55,7 +55,7 @@ createUserForm.addEventListener('submit', async (e) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     };
-
+    console.log(requestOptions);
     //validate success -- need to figure out error handling
     const data = await fetch('api/users', requestOptions)
     .then(response => response.json())
@@ -76,19 +76,18 @@ const createTrailForm = document.getElementById('create_trail_form');
 const createTrailName = createTrailForm.querySelector('#trail_name');
 const createTrailLength = createTrailForm.querySelector('#trail_length');
 //attempting to assign const a boolean based on form input. it looks like dog_friendly can be updated on create trail in trail-routes. doesn't seem to update currently
-const createDogFriendly = (createTrailForm.querySelector('#dog_friendly')==='on')?
-true : false;
+const createDogFriendly = createTrailForm.querySelector('#dog_friendly');
 const createDifficulty = createTrailForm.querySelector('#difficulty');
 const createDescription = createTrailForm.querySelector('#description');
 
 createTrailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-   
+   console.log(createDogFriendly.value)
     //logic to get form data
     const formData = {
         name: createTrailName.value,
         length: createTrailLength.value,
-        dog_friendly: createDogFriendly.value,
+        dog_friendly: createDogFriendly.value === 'on',
         difficulty: createDifficulty.value,
         description: createDescription.value
     }

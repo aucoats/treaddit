@@ -23,6 +23,11 @@ router.get('/', (req, res) => {
                 }
             },
             {
+                model: Rating.rating,
+                as: avgRating,
+                attributes: []
+            },
+            {
                 model: User,
                 attributes: ['username']
             }

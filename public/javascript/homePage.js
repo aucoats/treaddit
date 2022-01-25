@@ -75,8 +75,8 @@ createUserForm.addEventListener('submit', async (e) => {
 const createTrailForm = document.getElementById('create_trail_form');
 const createTrailName = createTrailForm.querySelector('#trail_name');
 const createTrailLength = createTrailForm.querySelector('#trail_length');
-//attempting to assign const a boolean based on form input. it looks like dog_friendly can be updated on create trail in trail-routes. doesn't seem to update currently
 const createDogFriendly = createTrailForm.querySelector('#dog_friendly');
+const createBikeFriendly = createTrailForm.querySelector('#bike_friendly');
 const createDifficulty = createTrailForm.querySelector('#difficulty');
 const createDescription = createTrailForm.querySelector('#description');
 
@@ -88,6 +88,7 @@ createTrailForm.addEventListener('submit', async (e) => {
         name: createTrailName.value,
         length: createTrailLength.value,
         dog_friendly: createDogFriendly.value === 'on',
+        bike_friendly: createBikeFriendly.value === 'on',
         difficulty: createDifficulty.value,
         description: createDescription.value
     }

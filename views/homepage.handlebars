@@ -1,6 +1,7 @@
 
 <div class="row">
-    <div class="col-sm-4" style="background-color: #d2dee0ff; padding: 20px">
+    {{#each trails as |trail|}}
+    <div class="col-sm-5" style="background-color: #d2dee0ff; padding: 20px">
         <div class="text-center">
             <nav class="navbar">
                 <div class="container-fluid">
@@ -13,16 +14,23 @@
                 </div>
             </nav>
                 <a href="#demo{{id}}" data-toggle="collapse">
-                    <img src="../public/img/example.jpg" class="img-circle" alt="Trail Image" width="255" height="255">
+                    <img src="/img/example.jpg" class="img-circle" alt="Trail Image" width="255" height="255">
                 </a><br>
                 <div id="demo{{id}}" class="collapse">
-                    <p>{{length}} miles </p>
-                    <p>Difficulty: {{difficulty}}</p>
-                    <p>Animals <span class="glyphicon glyphicon-ok"></span></p>
-                    <p>Bikes <span class="glyphicon glyphicon-remove"></span></p>
+                    <p>{{length}} miles | <span class="label label-warning">{{difficulty}}</span> </p>
+                    <div class="row">
+                        <div class="col-sm-6 text-center">
+                            <p>Animals {{#if dog_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                        </div>
+                    </div>
+                    
                     <p>{{description}}</p>
                     <p>Comment section display here </p>
                 </div>
+            {{/each}}
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Trail, User } = require('../../models');
+const { Trail, User, Comment, Rating } = require('../../models');
 
 router.get('/', (req, res) => {
     Trail.findAll({
@@ -10,9 +10,18 @@ router.get('/', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
-            'description'
+            'description',
+            [Sequelize.fn('AVG', Sequelize.col('rating.rating')), 'avgRating']
         ],
         include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
             {
                 model: User,
                 attributes: ['username']
@@ -38,9 +47,18 @@ router.get('/:id', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
-            'description'
+            'description',
+            [Sequelize.fn('AVG', Sequelize.col('rating.rating')), 'avgRating']
         ],
         include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
             {
                 model: User,
                 attributes: ['username']

@@ -1,12 +1,33 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Trail, User } = require('../models');
+const { Trail, User, Comment } = require('../models');
 const storageRef = require('./api/trail-routes');
 const downloadTrailImage = require('./api/trail-routes');
 
 router.get('/', (req, res) => {
     console.log(req.session);
 
+    res.render('homepage', {
+        id: 1,
+        name: "South Kaibab Trail",
+        length: 3,
+        dog_friendly: true,
+        bike_friendly: true,
+        difficulty: "Difficult",
+        description: "This trail descends a series of steep, exposed switchbacks, allowing you to grasp the magnitude of the canyon as you stare into its depths.",
+        posted_by: 1,
+        comment: [
+            { 
+            id: 1,
+            comment_text: "I love this trail!"
+        },{
+            id: 1,
+            comment_text: "This trail has a beautiful view."
+        }
+        ],
+        rating: 3
+    });
+/*
     Trail.findAll({
         attributes: [
             'id',
@@ -24,8 +45,34 @@ router.get('/', (req, res) => {
         console.log(err);
         res.status(500).json(err);
     });
+*/
 
 });
+
+router.get('/:id', (req, res) => {
+    const trail = {
+        id: 1,
+        name: "South Kaibab Trail",
+        length: 3,
+        dog_friendly: true,
+        bike_friendly: true,
+        difficulty: "Difficult",
+        description: "This trail descends a series of steep, exposed switchbacks, allowing you to grasp the magnitude of the canyon as you stare into its depths.",
+        posted_by: 1,
+        comment: [
+            { 
+            id: 1,
+            comment_text: "I love this trail!"
+        },{
+            id: 2,
+            comment_text: "This trail has a beautiful view."
+        }
+        ],
+        rating: 3
+    };
+  
+    res.render('comment', { trail });
+  });
 
 const exphbs = require('express-handlebars');
 const helpers = require('../utils/helpers')
@@ -66,5 +113,7 @@ hbs.handlebars.registerHelper('multiof3', function(id) {
         return false;
     }
 });
+
+/* Create a handle to get the value of rating, and send the mount of stars back */
 
 module.exports = router; 

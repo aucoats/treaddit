@@ -1,6 +1,21 @@
+<!-- Filter Bar -->
+  <section>
+    <div class="text-center" style="padding: 20px;">
+        <form class="form-inline">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Trail Name" name="searchName">
+          </div>
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button class="btn btn-success" style="background-color: #809712ff;" type="submit">Find Trail <i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </section>
+
 <div class="container-fluid">
-    {{#each trails as |trail|}}
-    {{#if (multiof4 id)}}<div class="row">{{/if}}
+    <div class="row">
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
@@ -33,12 +48,8 @@
                                 <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
                             </div>
                         </div>
-                        
-                        <p>{{description}}</p>
-                        <p>Comment section display here </p>
+                        <a href="/{{id}}">{{comment.length}} comments(s) </a>
                     </div>
             </div>
         </div>
-    {{#if (multiof3 id)}}</div>{{/if}}
-    {{/each}}
 </div>

@@ -65,6 +65,8 @@ createCommentForm.addEventListener('submit', async (e) => {
     })
     .catch(err => console.log(err));
 
-    
+    const resolvedData  = await data.json();
+    alert(resolvedData.message);
+
 
 })

@@ -1,28 +1,60 @@
-
-<div class="row">
-    <div class="col-sm-4" style="background-color: #d2dee0ff; padding: 20px">
-        <div class="text-center">
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                    <h4>{{name}}</h4>
-                    </div>
-                    <ul class="nav navbar-nav navbar-right">
-                    <button id="favorite-btn" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
-                    </ul>
-                </div>
-            </nav>
-                <a href="#demo{{id}}" data-toggle="collapse">
-                    <img src="/img/example.jpg" class="img-circle" alt="Trail Image" width="255" height="255">
-                </a><br>
-                <div id="demo{{id}}" class="collapse">
-                    <p>{{length}} miles </p>
-                    <p>Difficulty: {{difficulty}}</p>
-                    <p>Animals <span class="glyphicon glyphicon-ok"></span></p>
-                    <p>Bikes <span class="glyphicon glyphicon-remove"></span></p>
-                    <p>{{description}}</p>
-                    <p>Comment section display here </p>
-                </div>
-        </div>
+<!-- Filter Bar -->
+  <section>
+    <div class="text-center" style="padding: 20px;">
+        <form class="form-inline">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Trail Name" name="searchName">
+          </div>
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button class="btn filterBtn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+          <div class="input-group">
+              <button id="favorite-btn" class="btn filterBtn" > Favorites <span class="glyphicon glyphicon-heart"></span></button>
+          </div>
+        </form>
     </div>
+  </section>
+
+<div class="container-fluid">
+    <div class="row">
+    {{#each trails as |trail|}}
+        <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
+            <div class="text-center">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                        <h5>{{name}}</h5>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                        <button id="{{id}}" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
+                        </ul>
+                    </div>
+                </nav>
+                    <a href="#demo{{id}}" data-toggle="collapse">
+                        <img src="/img/example.jpg" class="img-circle card" alt="Trail Image" width="255" height="255">
+                    </a><br>
+                    <ul class="list-inline">
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>    
+                    </ul>
+                    <div id="demo{{id}}" class="collapse">
+                        <p>{{length}} miles | <span class="label label-{{difficultyLevel difficulty}}">{{difficulty}}</span> </p>
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+                                <p>Animals {{#if dog_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                            </div>
+                        </div>
+                        <a href="/{{id}}">view {{comment.length}} comments(s) </a>
+                    </div>
+            </div>
+{{/each}}
+        </div>
 </div>

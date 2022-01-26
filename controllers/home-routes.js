@@ -117,13 +117,13 @@ router.get('/:id', (req, res) => {
     }) .then(dbTrailData => {
         
         // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
-        var img_ref = dbTrailData[0].dataValues.img_ref;
-        img_url = router.use('/', (req, res) => {
-            console.log(downloadTrailImage(img_ref))
-            return downloadTrailImage(img_ref);
-        })
+        // var img_ref = dbTrailData[0].dataValues.img_ref;
+        // img_url = router.use('/', (req, res) => {
+        //     console.log(downloadTrailImage(img_ref))
+        //     return downloadTrailImage(img_ref);
+        // })
        
-        console.log('img_url:', img_url)
+        // console.log('img_url:', img_url)
         const trail = dbTrailData.get({ plain: true });
         
 

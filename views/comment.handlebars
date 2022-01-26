@@ -8,7 +8,7 @@
         <div class="col-sm-4">
             <div class="col-sm-12">
                 <div class="row" style="padding: 20px;">
-                    <form>
+                <form id="comment-form">
                         <fieldset class="star-rating">
                             <div class="star-rating__stars">
                                 <input class="star-rating__input" type="radio" name="rating" value="1" id="rating-1" />
@@ -24,13 +24,13 @@
                                 <div class="star-rating__focus"></div>
                             </div>
                         </fieldset>
-                    </form>
                 </div>
             </div>
             <div class="col-sm-12">
                 <textarea class="form-control" rows="4" id="addCommentText" placeholder="This trail... "></textarea><br>
                 <button type="submit" class="btn btn-success" style="background-color: #809712ff;">Add Comment</button>
             </div>
+            </form>
 
         </div>
         <div class="col-sm-8">
@@ -42,3 +42,5 @@
         </div>
     </div>
 </div>
+<script src="/javascript/commentHandler.js"></script>
+

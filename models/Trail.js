@@ -130,4 +130,4 @@ Trail.init(
     }
 )
 
-module.exports = Trail; 
+module.exports = Trail, firebase; 

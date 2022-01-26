@@ -1,6 +1,24 @@
+<!-- Filter Bar -->
+  <section>
+    <div class="text-center" style="padding: 20px;">
+        <form class="form-inline">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Trail Name" name="searchName">
+          </div>
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button class="btn filterBtn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+          <div class="input-group">
+              <button id="favorite-btn" class="btn filterBtn" > Favorites <span class="glyphicon glyphicon-heart"></span></button>
+          </div>
+        </form>
+    </div>
+  </section>
+
 <div class="container-fluid">
-    {{#each trails as |trail|}}
-    {{#if (multiof4 id)}}<div class="row">{{/if}}
+    <div class="row">
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
@@ -16,6 +34,13 @@
                     <a href="#demo{{id}}" data-toggle="collapse">
                         <img src="/img/example.jpg" class="img-circle card" alt="Trail Image" width="255" height="255">
                     </a><br>
+                    <ul class="list-inline">
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>    
+                    </ul>
                     <div id="demo{{id}}" class="collapse">
                         <p>{{length}} miles | <span class="label label-{{difficultyLevel difficulty}}">{{difficulty}}</span> </p>
                         <div class="row">
@@ -26,12 +51,8 @@
                                 <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
                             </div>
                         </div>
-                        
-                        <p>{{description}}</p>
-                        <p>Comment section display here </p>
+                        <a href="/{{id}}">view {{comment.length}} comments(s) </a>
                     </div>
             </div>
         </div>
-    {{#if (multiof3 id)}}</div>{{/if}}
-    {{/each}}
 </div>

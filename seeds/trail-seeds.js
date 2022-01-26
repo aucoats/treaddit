@@ -3,7 +3,7 @@ const { User, Trail } = require('../models');
 
 const trailData = [
     {
-        name: 'South Kaibab Trail, Grand Canyon National Park',
+        name: "South Kaibab Trail",
         length: 3,
         dog_friendly: true,
         bike_friendly: true,
@@ -12,7 +12,7 @@ const trailData = [
         posted_by: 1,
     },
     {
-        name: "Ocean Trail, Acadia National Park",
+        name: "Ocean Trail",
         length: 4.4,
         dog_friendly: false,
         bike_friendly: false,
@@ -21,7 +21,7 @@ const trailData = [
         posted_by: 1,
     },
     {
-        name: "Mohonk Labyrinth and Lemon Squeeze, New York",
+        name: "Mohonk Labyrinth",
         length: 5.5,
         dog_friendly: true,
         bike_friendly: true,
@@ -30,7 +30,7 @@ const trailData = [
         posted_by: 1,
     },
     {
-        name: "Vesper Peak, North Cascades",
+        name: "Vesper Peak",
         length: 8,
         dog_friendly: false,
         bike_friendly: false,
@@ -39,7 +39,7 @@ const trailData = [
         posted_by: 1,
     },
     {
-        name: "Clouds Rest, Yosemite National Park",
+        name: "Clouds Rest",
         length: 14.5,
         dog_friendly: false,
         bike_friendly: false,

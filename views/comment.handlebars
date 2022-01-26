@@ -1,0 +1,44 @@
+<div class="text-center" style="border-bottom: 2px solid lightgray;">
+    <h3>{{trail.name}}</h3><br>
+    <p>{{trail.description}}</p>
+</div><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="col-sm-12">
+                <div class="row" style="padding: 20px;">
+                    <form>
+                        <fieldset class="star-rating">
+                            <div class="star-rating__stars">
+                                <input class="star-rating__input" type="radio" name="rating" value="1" id="rating-1" />
+                                <label class="star-rating__label" for="rating-1" aria-label="One"></label>
+                                <input class="star-rating__input" type="radio" name="rating" value="2" id="rating-2" />
+                                <label class="star-rating__label" for="rating-2" aria-label="Two"></label>
+                                <input class="star-rating__input" type="radio" name="rating" value="3" id="rating-3" />
+                                <label class="star-rating__label" for="rating-3" aria-label="Three"></label>
+                                <input class="star-rating__input" type="radio" name="rating" value="4" id="rating-4" />
+                                <label class="star-rating__label" for="rating-4" aria-label="Four"></label>
+                                <input class="star-rating__input" type="radio" name="rating" value="5" id="rating-5" />
+                                <label class="star-rating__label" for="rating-5" aria-label="Five"></label>
+                                <div class="star-rating__focus"></div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <textarea class="form-control" rows="4" id="addCommentText" placeholder="This trail... "></textarea><br>
+                <button type="submit" class="btn btn-success" style="background-color: #809712ff;">Add Comment</button>
+            </div>
+
+        </div>
+        <div class="col-sm-8">
+            {{#each trail.comment}}
+            <div class="well" style="background-color: #d2dee0ff;">
+                <p>{{comment_text}}</p>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

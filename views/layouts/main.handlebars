@@ -19,7 +19,6 @@
       <div class="container-fluid">
         <!-- display fav, add trail btn, and login btn-->
         <ul class="nav navbar-nav navbar-right">
-          <button id="favorite-btn" class="btn navbar-btn" > Favorites <span class="glyphicon glyphicon-heart"></span></button>
           <button id="add-trail-btn" class="btn navbar-btn" data-toggle="modal" data-target="#addTrailModal"><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
           <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
         </ul>
@@ -28,7 +27,7 @@
     
     <!-- App name and slogan -->
     <div class="text-center">
-      <h2> Treaddit </h2>
+      <a href="/"><h2> Treaddit </h2></a>
       <h4 class="text-success"> " I could never resist the call of the Trail " </h4>
     </div>
   </header>
@@ -49,19 +48,19 @@
           <div class="text-center">
               <form id="login_form">
                 <div class="form-inline">
-                  <div class="input-group"><input type="text" id="login_email" name="login_email" placeholder="Email@Email.com" /></div>
-                  <div class="input-group"><input type="password" id="login_password" name="login_password" placeholder="Password" /></div>
+                  <div class="input-group"><input type="email" id="login_email" name="login_email" placeholder="Email@Email.com" required/></div>
+                  <div class="input-group"><input type="password" id="login_password" name="login_password" placeholder="Password" required/></div>
                 </div></br>
-                <div><button class="btn btn-success" style="background-color: #809712ff;" value="Log In" type="submit">Sign In</button></div>
+                <div><button class="btn btn-success" style="background-color: #809712ff;" id="login_btn" value="Log In" type="submit">Sign In</button></div>
               </form>
           </div>
 
           <h3 class="text-center"><small>Don't have an account? Sign up below! </small></h3>
           <!-- Sign up form -->
           <form id="create_user_form" class="text-center">
-            <div><input type="text" id="create_username" name="create_username" placeholder="User Name" /></div></br>
-            <div><input type="text" id="create_email" name="create_email" placeholder="Email@Email.com" /></div></br>
-            <div><input type="password" id="create_password" name="create_password" placeholder="Create Password" /></div></br>
+            <div><input type="text" id="create_username" name="create_username" placeholder="User Name" required/></div></br>
+            <div><input type="text" id="create_email" name="create_email" placeholder="Email@Email.com" required/></div></br>
+            <div><input type="password" id="create_password" name="create_password" placeholder="Create Password" required/></div></br>
             <div><button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create User">Create Account</button></div>
           </form>
         </div>
@@ -85,8 +84,8 @@
         <div class="modal-body">
           <!-- Create New Trail -->
           <form id="create_trail_form" class="text-center">
-            <div><input type="text" id="trail_name" name="trail_name" placeholder="Trail Name" /></div></br>
-            <div><input type="text" id="trail_length" name="trail_length" placeholder="Miles" /></div></br>
+            <div><input type="text" id="trail_name" name="trail_name" placeholder="Trail Name" required/></div></br>
+            <div><input type="text" id="trail_length" name="trail_length" placeholder="Miles" required/></div></br>
 
             <div>
               <label class="checkbox-inline">
@@ -97,38 +96,25 @@
               </label>
             </div><br>
 
-            <div><input type="text" id="difficulty" name="difficulty" placeholder="Difficulty"></div></br>
-            <div><input type="text" id="description" name="description" placeholder="Brief trail description..."></div></br>
+            <div><input type="text" id="difficulty" name="difficulty" placeholder="Difficulty" required></div></br>
+            <div><input type="text" id="description" name="description" placeholder="Brief trail description..." required></div></br>
+            <button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create Trail">Add New Trail</button>
           </form>
+            
+
         </div>
 
-        <div class="modal-footer"><div><button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create Trail" data-dismiss="modal">Add New Trail</button></div></div>
 
       </div> 
     </div>
   </div>
 
-  <!-- Filter Bar -->
-  <section>
-    <div class="text-center" style="padding: 20px;">
-        <form class="form-inline">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Trail Name" name="searchName">
-          </div>
-          <div class="input-group">
-            <div class="input-group-btn">
-              <button class="btn btn-success" style="background-color: #809712ff;" type="submit">Find Trail <i class="glyphicon glyphicon-search"></i></button>
-            </div>
-          </div>
-        </form>
-    </div>
-  </section>
-
   <!-- Trail body -->
   <main style="padding: 5%;">
     {{{ body }}}
   </main>
-<script src="/javascript/homePage.js"></script> 
+  
+  <script type="text/javascript" src="/javascript/homePage.js"></script>
 </body>
 
 </html>

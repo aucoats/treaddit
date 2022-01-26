@@ -18,8 +18,8 @@
   </section>
 
 <div class="container-fluid">
-    <div class="row">
     {{#each trails as |trail|}}
+    {{#if (multiof4 id)}}<div class="row">{{/if}}
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
@@ -53,8 +53,11 @@
                             </div>
                         </div>
                         <a href="/{{id}}">view {{comment.length}} comments(s) </a>
+                        <p>{{description}}</p>
+                        <p>Comment section display here </p>
                     </div>
             </div>
         </div>
+    {{#if (multiof3 id)}}</div>{{/if}}
     {{/each}}
 </div>

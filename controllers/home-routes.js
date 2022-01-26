@@ -63,47 +63,74 @@ router.get('/:id', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
-            'description'
-        ],
-        include: [
-            {
-                model: Comment,
-                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
-                include: {
-                    model: User,
-                    attributes: ['username']
-                }
-            },
-            {
-                model: Rating,
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-            },
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
+            'img_ref',
+            'description',
         ]
-    })
-    .then(dbTrailData => {
-        if(!dbTrailData) {
-            res.status(404).json({message: 'No trail found with this id'})
-            return;
-        }
-            // serialize the data
-            const trail = dbPostData.get({ plain: true });
+    }) .then(dbTrailData => {
+        
+        // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
+        var img_ref = dbTrailData[0].dataValues.img_ref;
+        img_url = router.use('/', (req, res) => {
+            console.log(downloadTrailImage(img_ref))
+            return downloadTrailImage(img_ref);
+        })
+       
+        console.log('img_url:', img_url)
+        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        
 
-            // pass data to template
-            res.render('comment', { trail });
-    })
-    .catch(err => {
+        res.render('homepage', {trails});
+    }) .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
+
 });
 
 const exphbs = require('express-handlebars');
-const helpers = require('../utils/helpers')
+const helpers = require('../utils/helpers');
+const { download } = require('express/lib/response');
 const hbs = exphbs.create({ helpers });
+
+hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
+    if(difficulty == "Easy"){
+        return "success"
+    }
+    if(difficulty == "Moderate"){
+        return "warning"
+    }
+    if(difficulty == "Difficult"){
+        return "danger"
+    }
+});
+
+hbs.handlebars.registerHelper('multiof4', function(id) {
+    var remainder = id % 4;
+    
+    if (id == 1){
+        return true;
+    } else {
+        if (remainder == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+});
+
+hbs.handlebars.registerHelper('multiof3', function(id) {
+    var remainder = id % 3;
+    
+    if(remainder == 0) {
+        return true;
+    } else { 
+        return false;
+    }
+});
+
+// const exphbs = require('express-handlebars');
+// const helpers = require('../utils/helpers')
+// const hbs = exphbs.create({ helpers });
 
 /* helper functiont display bootstrap/pill background color */
 hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {

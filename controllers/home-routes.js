@@ -9,46 +9,6 @@ const helpers = require('../utils/helpers');
 const { download } = require('express/lib/response');
 const hbs = exphbs.create({ helpers });
 
-hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
-    if(difficulty == "Easy"){
-        return "success"
-    }
-    if(difficulty == "Moderate"){
-        return "warning"
-    }
-    if(difficulty == "Difficult"){
-        return "danger"
-    }
-});
-
-hbs.handlebars.registerHelper('multiof4', function(id) {
-    var remainder = id % 4;
-    
-    if (id == 1){
-        return true;
-    } else {
-        if (remainder == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-});
-
-hbs.handlebars.registerHelper('multiof3', function(id) {
-    var remainder = id % 3;
-    
-    if(remainder == 0) {
-        return true;
-    } else { 
-        return false;
-    }
-});
-
-// const exphbs = require('express-handlebars');
-// const helpers = require('../utils/helpers')
-// const hbs = exphbs.create({ helpers });
-
 /* helper functiont display bootstrap/pill background color */
 hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
     if(difficulty == "Easy"){
@@ -164,20 +124,16 @@ router.get('/:id', (req, res) => {
         })
        
         console.log('img_url:', img_url)
-        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        const trail = dbTrailData.get({ plain: true }));
         
 
-        res.render('homepage', {trails});
+        res.render('comment', {trail});
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 
 });
-
-
-
-/* Create a handle to get the value of rating, and send the mount of stars back */
 
 module.exports = router; 
 

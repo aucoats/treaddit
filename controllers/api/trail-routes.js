@@ -173,6 +173,7 @@ router.get('/:id', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
+            'img_ref',
             'description'
         ],
         include: [
@@ -208,25 +209,27 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', upload.single("file"), (req, res) => {
-    console.log(req.file);
+    console.log('req.file:', req.file)
     uploadTrailImage(req.file)
     .then((result) => {
-        res.json(result);
-    })
+        // res.json(result);
+    console.log('res.json(result):', res.json(result))
+
     // Trail.create({
     //     name: req.body.name,
     //     length: req.body.length,
     //     dog_friendly: req.body.dog_friendly,
     //     bike_friendly: req.body.bike_friendly,
     //     difficulty: req.body.difficulty,
-    //     description: req.body.description
+    //     description: req.body.description,
+        
     // })
     // .then(dbTrailData => res.json(dbTrailData))
     // .catch(err => {
     //     console.log(err);
     //     res.status(500).json(err);
     // });
-});
+})});
 
 
 router.post('/rating/:id', withAuth, (req, res) => {
@@ -313,4 +316,4 @@ router.delete('/:id', withAuth, (req, res) => {
     });
 });
 
-module.exports = router, storageRef, downloadTrailImage;
+module.exports = router;

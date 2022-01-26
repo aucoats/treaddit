@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
+            'img_ref',
             'description',
         ]
     }) .then(dbTrailData => {

@@ -113,9 +113,19 @@ router.get('/', (req, res) => {
         ]
     })
     .then(dbTrailData => {
-        console.log('dbTrailData:', dbTrailData)
-        console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)
-          
+        // console.log('dbTrailData:', dbTrailData)
+        // console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)
+        
+        // storageRef.child(dbTrailData[0].dataValues.img_ref).getDownloadURL()
+        // .then((url) => {
+        //     dbTrailData[0].dataValues.img_ref = url;
+        // })
+        
+            
+
+        // Or inserted into an <img> element
+        // var img = document.getElementById('myimg');
+        // img.setAttribute('src', url);
         // var img_ref = dbTrailData[0].dataValues.img_ref;
         // await downloadTrailImage(img_ref).then(response => {
         //     dbTrailData[0].dataValues.img_ref = response;
@@ -133,6 +143,7 @@ router.get('/', (req, res) => {
         // create storage reference
         // pull image from reference 
         res.json(dbTrailData);
+
     })
     .catch(err => {
         console.log(err);

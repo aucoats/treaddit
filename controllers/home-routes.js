@@ -19,8 +19,12 @@ router.get('/', (req, res) => {
             'description',
         ]
     }) .then(dbTrailData => {
-       const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-       res.render('homepage', {trails});
+        
+        const img_url = dbTrailData.downloadTrailImage(dbTrailData[0].dataValues.img_ref);
+        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        
+
+        res.render('homepage', {trails});
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);

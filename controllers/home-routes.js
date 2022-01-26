@@ -9,46 +9,6 @@ const helpers = require('../utils/helpers');
 const { download } = require('express/lib/response');
 const hbs = exphbs.create({ helpers });
 
-hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
-    if(difficulty == "Easy"){
-        return "success"
-    }
-    if(difficulty == "Moderate"){
-        return "warning"
-    }
-    if(difficulty == "Difficult"){
-        return "danger"
-    }
-});
-
-hbs.handlebars.registerHelper('multiof4', function(id) {
-    var remainder = id % 4;
-    
-    if (id == 1){
-        return true;
-    } else {
-        if (remainder == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-});
-
-hbs.handlebars.registerHelper('multiof3', function(id) {
-    var remainder = id % 3;
-    
-    if(remainder == 0) {
-        return true;
-    } else { 
-        return false;
-    }
-});
-
-// const exphbs = require('express-handlebars');
-// const helpers = require('../utils/helpers')
-// const hbs = exphbs.create({ helpers });
-
 /* helper functiont display bootstrap/pill background color */
 hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
     if(difficulty == "Easy"){
@@ -137,45 +97,6 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
     });
 });
-
-/* Render the comments for the trail selected and send user to comment page*/
-router.get('/:id', (req, res) => {
-    Trail.findOne({
-        where: {
-            id: req.params.id
-        },
-        attributes: [
-            'id',
-            'name',
-            'length',
-            'dog_friendly',
-            'bike_friendly',
-            'difficulty',
-            'img_ref',
-            'description',
-        ]
-    }) .then(dbTrailData => {
-        
-        // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
-        var img_ref = dbTrailData[0].dataValues.img_ref;
-        img_url = router.use('/', (req, res) => {
-            console.log(downloadTrailImage(img_ref))
-            return downloadTrailImage(img_ref);
-        })
-       
-        console.log('img_url:', img_url)
-        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        
-
-        res.render('homepage', {trails});
-    }) .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-
-});
-
-
 
 /* Create a handle to get the value of rating, and send the mount of stars back */
 

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { download } = require('express/lib/response');
 // const firebase = require('firebase');
 const multer  = require('multer');
-const upload = multer({ dest: '/public/img/'});
+const upload = multer();
 const { Trail, User, Comment, Rating } = require('../../models');
 const sequelize = require('../../config/connection');
 const Sequelize = require('sequelize');
@@ -219,7 +219,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', upload.single("file"), (req, res) => {
+router.post('/', (req, res) => {
     console.log('req.file:', req.file)
     console.log('req.body:', req.body)
     // uploadTrailImageFirebase(req.file)
@@ -234,7 +234,7 @@ router.post('/', upload.single("file"), (req, res) => {
         bike_friendly: req.body.bike_friendly,
         difficulty: req.body.difficulty,
         description: req.body.description,
-        img_ref: "img/" + req.body.name 
+        // img_ref: "img/" + req.body.name 
     })
     .then(dbTrailData => res.json(dbTrailData))
     .catch(err => {

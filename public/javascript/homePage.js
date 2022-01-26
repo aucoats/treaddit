@@ -24,7 +24,6 @@ loginForm.addEventListener('submit', async (e) => {
     .catch(err => console.log(err));
 
     const resolvedData  = await data.json();
-    alert(resolvedData.message);
 
     //error handling
     if(data.status && data.status !== 200 ) {
@@ -117,6 +116,25 @@ createTrailForm.addEventListener('submit', async (e) => {
     window.location.reload();
 });
 
+// logout function
+async function logout() {
+    const response = await fetch('/api/users/logout', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert(response.statusText);
+    }
+  }
+  
+const logoutBtn = document.querySelector('#logout-btn')
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', logout);
+}
+
 //function to close modals
 const loginModal = document.getElementById('loginModal');
 const createTrailModal = document.getElementById('addTrailModal');
@@ -127,32 +145,3 @@ function closeAllModals () {
         modal.classList.remove('in');
     })
 };
-
-//Add Rating
-// const createRatingForm = document.getElementById('createRatingForm');
-// const ratingValue = createUserForm.querySelector('.star-rating__input');
-
-// createRatingForm.addEventListener('radio', async (e) => {
-//     e.preventDefault();
-   
-//     //logic to get form data
-//     const formData = {
-//         rating: ratingValue.value,
-//     }
-//     //api call
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(formData)
-//     };
-//     console.log(requestOptions);
-//     //validate success -- need to figure out error handling
-//     const data = await fetch('api/rating/:id', requestOptions)
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(data);
-//         return data
-//     })
-//     .catch(err => console.log(err));
-//     console.log(data);
-// });

@@ -1,6 +1,3 @@
-const req = require("express/lib/request");
-const res = require("express/lib/response");
-
 const createCommentForm = document.querySelector("#comment-form");
 
 createCommentForm.addEventListener('submit', async (e) => {
@@ -40,14 +37,19 @@ createCommentForm.addEventListener('submit', async (e) => {
 
     if (commentData === 'This trail...') {
         alert('Empty comments do not an interesting trail make');
-        break;
+        window.location.reload();
     }
+
+    const trail_id = window.location.toString().split('/')[
+        window.location.toString().split('/').length - 1
+    ];
+
+    console.log(trail_id);
 
     //logic to get form data
     const formData = {
         comment_text: commentData,
-        user_id: req.session.user_id,
-        trail_id: req.params.id
+        trail_id: trail_id,
     }
 
     //api call

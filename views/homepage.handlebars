@@ -7,8 +7,11 @@
           </div>
           <div class="input-group">
             <div class="input-group-btn">
-              <button class="btn btn-success" style="background-color: #809712ff;" type="submit">Find Trail <i class="glyphicon glyphicon-search"></i></button>
+              <button class="btn filterBtn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>
+          </div>
+          <div class="input-group">
+              <button id="favorite-btn" class="btn filterBtn" > Favorites <span class="glyphicon glyphicon-heart"></span></button>
           </div>
         </form>
     </div>
@@ -48,7 +51,7 @@
                                 <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
                             </div>
                         </div>
-                        <a href="/{{id}}">{{comment.length}} comments(s) </a>
+                        <a href="/{{id}}">view {{comment.length}} comments(s) </a>
                     </div>
             </div>
         </div>

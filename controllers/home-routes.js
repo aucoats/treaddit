@@ -1,33 +1,13 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Trail, User, Comment } = require('../models');
+const Sequelize = require('sequelize');
+const { Trail, User, Comment, Rating } = require('../models');
 const storageRef = require('./api/trail-routes');
 const downloadTrailImage = require('./api/trail-routes');
 
+/* Loading all trails to homepage on render */
 router.get('/', (req, res) => {
     console.log(req.session);
-
-    res.render('homepage', {
-        id: 1,
-        name: "South Kaibab Trail",
-        length: 3,
-        dog_friendly: true,
-        bike_friendly: true,
-        difficulty: "Difficult",
-        description: "This trail descends a series of steep, exposed switchbacks, allowing you to grasp the magnitude of the canyon as you stare into its depths.",
-        posted_by: 1,
-        comment: [
-            { 
-            id: 1,
-            comment_text: "I love this trail!"
-        },{
-            id: 1,
-            comment_text: "This trail has a beautiful view."
-        }
-        ],
-        rating: 3
-    });
-/*
     Trail.findAll({
         attributes: [
             'id',
@@ -37,47 +17,95 @@ router.get('/', (req, res) => {
             'bike_friendly',
             'difficulty',
             'description',
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: Rating,
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
         ]
     }) .then(dbTrailData => {
-       const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-       res.render('homepage', {trails});
+        if(!dbTrailData) {
+            res.status(404).json({message: 'No trail found'})
+            return;
+        }
+        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        res.render('homepage', {trails});
+
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
-*/
-
 });
 
+/* Render the comments for the trail selected and send user to comment page*/
 router.get('/:id', (req, res) => {
-    const trail = {
-        id: 1,
-        name: "South Kaibab Trail",
-        length: 3,
-        dog_friendly: true,
-        bike_friendly: true,
-        difficulty: "Difficult",
-        description: "This trail descends a series of steep, exposed switchbacks, allowing you to grasp the magnitude of the canyon as you stare into its depths.",
-        posted_by: 1,
-        comment: [
-            { 
-            id: 1,
-            comment_text: "I love this trail!"
-        },{
-            id: 2,
-            comment_text: "This trail has a beautiful view."
-        }
+    Trail.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id',
+            'name',
+            'length',
+            'dog_friendly',
+            'bike_friendly',
+            'difficulty',
+            'description'
         ],
-        rating: 3
-    };
-  
-    res.render('comment', { trail });
-  });
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: Rating,
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
+        ]
+    })
+    .then(dbTrailData => {
+        if(!dbTrailData) {
+            res.status(404).json({message: 'No trail found with this id'})
+            return;
+        }
+            // serialize the data
+            const trail = dbPostData.get({ plain: true });
+
+            // pass data to template
+            res.render('comment', { trail });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
 
 const exphbs = require('express-handlebars');
 const helpers = require('../utils/helpers')
 const hbs = exphbs.create({ helpers });
 
+/* helper functiont display bootstrap/pill background color */
 hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
     if(difficulty == "Easy"){
         return "success"
@@ -90,6 +118,7 @@ hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
     }
 });
 
+/* helper functiont to render bootstrap rows of three for the trails iterated through */
 hbs.handlebars.registerHelper('multiof4', function(id) {
     var remainder = id % 4;
     
@@ -104,6 +133,7 @@ hbs.handlebars.registerHelper('multiof4', function(id) {
     }
 });
 
+/* helper functiont to render bootstrap rows of three for the trails iterated through */
 hbs.handlebars.registerHelper('multiof3', function(id) {
     var remainder = id % 3;
     
@@ -117,3 +147,26 @@ hbs.handlebars.registerHelper('multiof3', function(id) {
 /* Create a handle to get the value of rating, and send the mount of stars back */
 
 module.exports = router; 
+
+/*
+Rylee's test IGNORE
+res.render('homepage', {
+    id: 1,
+    name: "South Kaibab Trail",
+    length: 3,
+    dog_friendly: true,
+    bike_friendly: true,
+    difficulty: "Difficult",
+    description: "This trail descends a series of steep, exposed switchbacks, allowing you to grasp the magnitude of the canyon as you stare into its depths.",
+    posted_by: 1,
+    comment: [
+        { 
+        id: 1,
+        comment_text: "I love this trail!"
+    },{
+        id: 1,
+        comment_text: "This trail has a beautiful view."
+    }
+    ],
+    rating: 3
+*/

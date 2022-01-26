@@ -124,7 +124,7 @@ router.get('/:id', (req, res) => {
         })
        
         console.log('img_url:', img_url)
-        const trail = dbTrailData.get({ plain: true }));
+        const trail = dbTrailData.get({ plain: true });
         
 
         res.render('comment', {trail});

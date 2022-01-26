@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { download } = require('express/lib/response');
-const firebase = require('firebase');
+// const firebase = require('firebase');
 const multer  = require('multer');
 const upload = multer();
 
@@ -12,20 +12,20 @@ const sequelize = require('../../config/connection');
 const Sequelize = require('sequelize');
 const withAuth = require('../../utils/auth');
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDyyFmd6Y7okq8KMn7JyROKxfk46gKJfC4",
-    authDomain: "treaddit.firebaseapp.com",
-    projectId: "treaddit",
-    storageBucket: "treaddit.appspot.com",
-    messagingSenderId: "964574079370",
-    appId: "1:964574079370:web:7dd35ffdb6443410a78073",
-    measurementId: "G-60MZQ7M7LG"
-};
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDyyFmd6Y7okq8KMn7JyROKxfk46gKJfC4",
+//     authDomain: "treaddit.firebaseapp.com",
+//     projectId: "treaddit",
+//     storageBucket: "treaddit.appspot.com",
+//     messagingSenderId: "964574079370",
+//     appId: "1:964574079370:web:7dd35ffdb6443410a78073",
+//     measurementId: "G-60MZQ7M7LG"
+// };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
-var storage = firebase.storage();
-var storageRef = storage.ref();
+// var storage = firebase.storage();
+// var storageRef = storage.ref();
 
 const uploadTrailImage = (trailImage) => {
     var imageRef = storageRef.child(`/trails/${trailImage.originalname}`)
@@ -42,14 +42,14 @@ const uploadTrailImage = (trailImage) => {
       });
 }
 
-async function downloadTrailImage(img_ref) {
+function downloadTrailImage(img_ref) {
   
     // [START storage_download_full_example]
     // Create a reference to the file we want to download
     var starsRef = storageRef.child(img_ref);
   
     // Get the download URL
-    return await starsRef.getDownloadURL()
+    return starsRef.getDownloadURL()
     .then((url) => {
       // Insert url into an <img> tag to "download"
       console.log(url);

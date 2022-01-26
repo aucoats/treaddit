@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
+const Sequelize = require('sequelize');
 const { Trail, User } = require('../models');
 const storageRef = require('./api/trail-routes');
 const downloadTrailImage = require('./api/trail-routes');
@@ -20,7 +21,14 @@ router.get('/', (req, res) => {
         ]
     }) .then(dbTrailData => {
         
-        const img_url = dbTrailData.downloadTrailImage(dbTrailData[0].dataValues.img_ref);
+        // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
+        var img_ref = dbTrailData[0].dataValues.img_ref;
+        img_url = router.use('/', (req, res) => {
+            console.log(downloadTrailImage(img_ref))
+            return downloadTrailImage(img_ref);
+        })
+       
+        console.log('img_url:', img_url)
         const trails = dbTrailData.map(trail => trail.get({ plain: true }));
         
 
@@ -33,7 +41,8 @@ router.get('/', (req, res) => {
 });
 
 const exphbs = require('express-handlebars');
-const helpers = require('../utils/helpers')
+const helpers = require('../utils/helpers');
+const { download } = require('express/lib/response');
 const hbs = exphbs.create({ helpers });
 
 hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {

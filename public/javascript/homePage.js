@@ -127,4 +127,3 @@ function closeAllModals () {
         modal.classList.remove('in');
     })
 };
- 

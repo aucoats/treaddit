@@ -20,17 +20,20 @@ loginForm.addEventListener('submit', async (e) => {
 
     //validate success -- need to figure out error handling
     const data = await fetch('api/users/login', requestOptions)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        return data
-    })
+    .then(response => response)
     .catch(err => console.log(err));
 
-    document.getElementById('login_form').reset()
+    const resolvedData  = await data.json();
+    alert(resolvedData.message);
 
-    // function to update the DOM
-    console.log(data);
+    //error handling
+    if(data.status && data.status !== 200 ) {
+        loginForm.reset();
+    } else {
+    //close modal
+    closeAllModals();
+    window.location.reload();
+    };
 });
 
 
@@ -55,7 +58,7 @@ createUserForm.addEventListener('submit', async (e) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     };
-
+    console.log(requestOptions);
     //validate success -- need to figure out error handling
     const data = await fetch('api/users', requestOptions)
     .then(response => response.json())
@@ -67,28 +70,29 @@ createUserForm.addEventListener('submit', async (e) => {
 
     document.getElementById('create_user_form').reset()
 
-    // function to update the DOM
-    console.log(data);
+    //close modal
+    closeAllModals();
+    window.location.reload();
 });
 
 //create trail
 const createTrailForm = document.getElementById('create_trail_form');
 const createTrailName = createTrailForm.querySelector('#trail_name');
 const createTrailLength = createTrailForm.querySelector('#trail_length');
-//attempting to assign const a boolean based on form input. it looks like dog_friendly can be updated on create trail in trail-routes. doesn't seem to update currently
-const createDogFriendly = (createTrailForm.querySelector('#dog_friendly')==='on')?
-true : false;
+const createDogFriendly = createTrailForm.querySelector('#dog_friendly');
+const createBikeFriendly = createTrailForm.querySelector('#bike_friendly');
 const createDifficulty = createTrailForm.querySelector('#difficulty');
 const createDescription = createTrailForm.querySelector('#description');
 
 createTrailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-   
+
     //logic to get form data
     const formData = {
         name: createTrailName.value,
         length: createTrailLength.value,
-        dog_friendly: createDogFriendly.value,
+        dog_friendly: createDogFriendly.value === 'on',
+        bike_friendly: createBikeFriendly.value === 'on',
         difficulty: createDifficulty.value,
         description: createDescription.value
     }
@@ -99,17 +103,27 @@ createTrailForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
 
-    //validate success -- need to figure out error handling
+    //validate success, reset form
     const data = await fetch('api/trails', requestOptions)
     .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        return data
-    })
+    
     .catch(err => console.log(err));
 
     document.getElementById('create_trail_form').reset()
 
-    // function to update the DOM
+    //close modal
     console.log(data);
+    closeAllModals();
+    window.location.reload();
 });
+
+//function to close modals
+const loginModal = document.getElementById('loginModal');
+const createTrailModal = document.getElementById('addTrailModal');
+const modals = document.querySelectorAll('.modal');
+
+function closeAllModals () {
+    modals.forEach( (modal) =>{
+        modal.classList.remove('in');
+    })
+};

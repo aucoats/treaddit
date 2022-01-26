@@ -1,30 +1,37 @@
-
-<div class="row">
+<div class="container-fluid">
     {{#each trails as |trail|}}
-    <div class="col-sm-4" style="background-color: #d2dee0ff; padding: 20px">
-        <div class="text-center">
-            <nav class="navbar">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                    <h4>{{trail.name}}</h4>
+    {{#if (multiof4 id)}}<div class="row">{{/if}}
+        <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
+            <div class="text-center">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                        <h5>{{name}}</h5>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                        <button id="{{id}}" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
+                        </ul>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-                    <button id="favorite-btn" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
-                    </ul>
-                </div>
-            </nav>
-                <a href="#demo{{trail.id}}" data-toggle="collapse">
-                    <img src="{{trail.img_ref}}" class="img-circle" alt="Trail Image" width="255" height="255">
-                </a><br>
-                <div id="demo{{trail.id}}" class="collapse">
-                    <p>{{trail.length}} miles </p>
-                    <p>Difficulty: {{trail.difficulty}}</p>
-                    <p>Animals <span class="glyphicon glyphicon-ok"></span></p>
-                    <p>Bikes <span class="glyphicon glyphicon-remove"></span></p>
-                    <p>{{trail.description}}</p>
-                    <p>Comment section display here </p>
-                </div>
+                </nav>
+                    <a href="#demo{{id}}" data-toggle="collapse">
+                        <img src="/img/example.jpg" class="img-circle card" alt="Trail Image" width="255" height="255">
+                    </a><br>
+                    <div id="demo{{id}}" class="collapse">
+                        <p>{{length}} miles | <span class="label label-{{difficultyLevel difficulty}}">{{difficulty}}</span> </p>
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+                                <p>Animals {{#if dog_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                            </div>
+                        </div>
+                        
+                        <p>{{description}}</p>
+                        <p>Comment section display here </p>
+                    </div>
+            </div>
         </div>
-    </div>
+    {{#if (multiof3 id)}}</div>{{/if}}
     {{/each}}
 </div>

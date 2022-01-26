@@ -19,6 +19,7 @@
 
 <div class="container-fluid">
     <div class="row">
+    {{#each trails as |trail|}}
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
@@ -54,5 +55,6 @@
                         <a href="/{{id}}">view {{comment.length}} comments(s) </a>
                     </div>
             </div>
+{{/each}}
         </div>
 </div>

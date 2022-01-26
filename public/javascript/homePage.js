@@ -24,7 +24,6 @@ loginForm.addEventListener('submit', async (e) => {
     .catch(err => console.log(err));
 
     const resolvedData  = await data.json();
-    alert(resolvedData.message);
 
     //error handling
     if(data.status && data.status !== 200 ) {
@@ -117,6 +116,25 @@ createTrailForm.addEventListener('submit', async (e) => {
     window.location.reload();
 });
 
+// logout function
+async function logout() {
+    const response = await fetch('/api/users/logout', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert(response.statusText);
+    }
+  }
+  
+const logoutBtn = document.querySelector('#logout-btn')
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', logout);
+}
+
 //function to close modals
 const loginModal = document.getElementById('loginModal');
 const createTrailModal = document.getElementById('addTrailModal');
@@ -127,4 +145,3 @@ function closeAllModals () {
         modal.classList.remove('in');
     })
 };
-

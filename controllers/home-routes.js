@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Trail, User } = require('../models');
+const storageRef = require('./api/trail-routes');
+const downloadTrailImage = require('./api/trail-routes');
 
 router.get('/', (req, res) => {
     console.log(req.session);

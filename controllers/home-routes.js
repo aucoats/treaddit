@@ -124,10 +124,10 @@ router.get('/:id', (req, res) => {
         })
        
         console.log('img_url:', img_url)
-        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        const trail = dbTrailData.get({ plain: true }));
         
 
-        res.render('homepage', {trails});
+        res.render('comment', {trail});
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);

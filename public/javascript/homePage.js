@@ -128,3 +128,31 @@ function closeAllModals () {
     })
 };
 
+//Add Rating
+// const createRatingForm = document.getElementById('createRatingForm');
+// const ratingValue = createUserForm.querySelector('.star-rating__input');
+
+// createRatingForm.addEventListener('radio', async (e) => {
+//     e.preventDefault();
+   
+//     //logic to get form data
+//     const formData = {
+//         rating: ratingValue.value,
+//     }
+//     //api call
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(formData)
+//     };
+//     console.log(requestOptions);
+//     //validate success -- need to figure out error handling
+//     const data = await fetch('api/rating/:id', requestOptions)
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data);
+//         return data
+//     })
+//     .catch(err => console.log(err));
+//     console.log(data);
+// });

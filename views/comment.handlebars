@@ -8,6 +8,7 @@
         <div class="col-sm-4">
             <div class="col-sm-12">
                 <div class="row" style="padding: 20px;">
+                {{#if loggedIn}}
                 <form id="comment-form">
                         <fieldset class="star-rating">
                             <div class="star-rating__stars">
@@ -31,12 +32,13 @@
                 <button type="submit" class="btn btn-success" style="background-color: #809712ff;">Add Comment</button>
             </div>
             </form>
+            {{/if}}
 
         </div>
         <div class="col-sm-8">
-            {{#each trail.comment}}
+            {{#each trail.comments as |comment|}}
             <div class="well" style="background-color: #d2dee0ff;">
-                <p>{{comment_text}}</p>
+                <p>{{comment.comment_text}}</p>
             </div>
             {{/each}}
         </div>

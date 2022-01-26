@@ -90,7 +90,7 @@ router.get('/', (req, res) => {
         console.log('dbTrailData:', dbTrailData)
         const trails = dbTrailData.map(trail => trail.get({ plain: true }));
         console.log('trails:', trails)
-        res.render('homepage', {trails});
+        res.render('homepage', {trails, loggedIn: req.session.loggedIn});
 
     }) .catch(err => {
         console.log(err);
@@ -113,27 +113,47 @@ router.get('/:id', (req, res) => {
             'difficulty',
             'img_ref',
             'description',
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: Rating,
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
         ]
-    }) .then(dbTrailData => {
-        
+    }).then(dbTrailData => {
+        console.log('dbTrailData:', dbTrailData)
         // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
         // var img_ref = dbTrailData[0].dataValues.img_ref;
         // img_url = router.use('/', (req, res) => {
         //     console.log(downloadTrailImage(img_ref))
         //     return downloadTrailImage(img_ref);
         // })
-       
+        
         // console.log('img_url:', img_url)
         const trail = dbTrailData.get({ plain: true });
         
+        console.log(trail);
 
-        res.render('comment', {trail});
+        res.render('comment', {trail, loggedIn: req.session.loggedIn});
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 
 });
+/* Create a handle to get the value of rating, and send the mount of stars back */
 
 module.exports = router; 
 

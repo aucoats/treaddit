@@ -127,7 +127,7 @@ router.get('/:id', (req, res) => {
         const trail = dbTrailData.get({ plain: true });
         
 
-        res.render('homepage', {trail});
+        res.render('comment', {trail});
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);

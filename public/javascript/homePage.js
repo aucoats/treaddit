@@ -20,17 +20,23 @@ loginForm.addEventListener('submit', async (e) => {
 
     //validate success -- need to figure out error handling
     const data = await fetch('api/users/login', requestOptions)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        return data
-    })
+    .then(response => response)
+    // .then(data => {
+    //     console.log(data);
+    //     return data
+    // })
     .catch(err => console.log(err));
-
-    document.getElementById('login_form').reset()
+    const resolvedData  = await data.json();
+    loginForm.reset()
 
     // function to update the DOM
     console.log(data);
+    if(data.status && data.status !== 200 ) {
+        alert(resolvedData.message);
+        loginForm.reset();
+    }
+  
+    console.log(resolvedData);
 });
 
 
@@ -82,7 +88,7 @@ const createDescription = createTrailForm.querySelector('#description');
 
 createTrailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-   console.log(createDogFriendly.value)
+
     //logic to get form data
     const formData = {
         name: createTrailName.value,
@@ -102,15 +108,24 @@ createTrailForm.addEventListener('submit', async (e) => {
     //validate success -- need to figure out error handling
     const data = await fetch('api/trails', requestOptions)
     .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        return data
-    })
+    
     .catch(err => console.log(err));
 
     document.getElementById('create_trail_form').reset()
 
     // function to update the DOM
     console.log(data);
+    closeAllModals();
+    // window.location.reload();
 });
- 
+
+//function to close modals
+const loginModal = document.getElementById('loginModal');
+const createTrailModal = document.getElementById('addTrailModal');
+const modals = document.querySelectorAll('.modal');
+
+function closeAllModals () {
+    modals.forEach( (modal) =>{
+        modal.classList.remove('in');
+    })
+};

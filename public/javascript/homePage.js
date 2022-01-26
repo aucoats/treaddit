@@ -21,22 +21,19 @@ loginForm.addEventListener('submit', async (e) => {
     //validate success -- need to figure out error handling
     const data = await fetch('api/users/login', requestOptions)
     .then(response => response)
-    // .then(data => {
-    //     console.log(data);
-    //     return data
-    // })
     .catch(err => console.log(err));
-    const resolvedData  = await data.json();
-    loginForm.reset()
 
-    // function to update the DOM
-    console.log(data);
+    const resolvedData  = await data.json();
+    alert(resolvedData.message);
+
+    //error handling
     if(data.status && data.status !== 200 ) {
-        alert(resolvedData.message);
         loginForm.reset();
-    }
-  
-    console.log(resolvedData);
+    } else {
+    //close modal
+    closeAllModals();
+    window.location.reload();
+    };
 });
 
 
@@ -73,8 +70,9 @@ createUserForm.addEventListener('submit', async (e) => {
 
     document.getElementById('create_user_form').reset()
 
-    // function to update the DOM
-    console.log(data);
+    //close modal
+    closeAllModals();
+    window.location.reload();
 });
 
 //create trail
@@ -105,7 +103,7 @@ createTrailForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
 
-    //validate success -- need to figure out error handling
+    //validate success, reset form
     const data = await fetch('api/trails', requestOptions)
     .then(response => response.json())
     
@@ -113,10 +111,10 @@ createTrailForm.addEventListener('submit', async (e) => {
 
     document.getElementById('create_trail_form').reset()
 
-    // function to update the DOM
+    //close modal
     console.log(data);
     closeAllModals();
-    // window.location.reload();
+    window.location.reload();
 });
 
 //function to close modals

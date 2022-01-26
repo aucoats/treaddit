@@ -18,8 +18,8 @@
   </section>
 
 <div class="container-fluid">
-    {{#each trails as |trail|}}
-    {{#if (multiof4 id)}}<div class="row">{{/if}}
+    {{#each trails}}
+    {{!-- {{#if (multiof4 id)}}<div class="row">{{/if}} --}}
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
@@ -58,6 +58,6 @@
                     </div>
             </div>
         </div>
-    {{#if (multiof3 id)}}</div>{{/if}}
+    {{!-- {{#if (multiof3 id)}}</div>{{/if}} --}}
     {{/each}}
 </div>

@@ -4,89 +4,6 @@ const Sequelize = require('sequelize');
 const { Trail, User, Comment, Rating } = require('../models');
 const storageRef = require('./api/trail-routes');
 const downloadTrailImage = require('./api/trail-routes');
-
-/* Loading all trails to homepage on render */
-router.get('/', (req, res) => {
-    console.log(req.session);
-    Trail.findAll({
-        attributes: [
-            'id',
-            'name',
-            'length',
-            'dog_friendly',
-            'bike_friendly',
-            'difficulty',
-            'description',
-        ],
-        include: [
-            {
-                model: Comment,
-                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
-                include: {
-                    model: User,
-                    attributes: ['username']
-                }
-            },
-            {
-                model: Rating,
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-            },
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
-        ]
-    }) .then(dbTrailData => {
-        if(!dbTrailData) {
-            res.status(404).json({message: 'No trail found'})
-            return;
-        }
-        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        res.render('homepage', {trails});
-
-    }) .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
-
-/* Render the comments for the trail selected and send user to comment page*/
-router.get('/:id', (req, res) => {
-    Trail.findOne({
-        where: {
-            id: req.params.id
-        },
-        attributes: [
-            'id',
-            'name',
-            'length',
-            'dog_friendly',
-            'bike_friendly',
-            'difficulty',
-            'img_ref',
-            'description',
-        ]
-    }) .then(dbTrailData => {
-        
-        // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
-        var img_ref = dbTrailData[0].dataValues.img_ref;
-        img_url = router.use('/', (req, res) => {
-            console.log(downloadTrailImage(img_ref))
-            return downloadTrailImage(img_ref);
-        })
-       
-        console.log('img_url:', img_url)
-        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        
-
-        res.render('homepage', {trails});
-    }) .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-
-});
-
 const exphbs = require('express-handlebars');
 const helpers = require('../utils/helpers');
 const { download } = require('express/lib/response');
@@ -170,6 +87,95 @@ hbs.handlebars.registerHelper('multiof3', function(id) {
         return false;
     }
 });
+
+/* Loading all trails to homepage on render */
+router.get('/', (req, res) => {
+    console.log(req.session);
+    Trail.findAll({
+        attributes: [
+            'id',
+            'name',
+            'length',
+            'dog_friendly',
+            'bike_friendly',
+            'difficulty',
+            'description',
+            'img_ref'
+        ],
+        group: 'id',
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: Rating,
+                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            }
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
+        ]
+    })
+    .then(dbTrailData => {
+        if(!dbTrailData) {
+            res.status(404).json({message: 'No trail found'})
+            return;
+        }
+        console.log('dbTrailData:', dbTrailData)
+        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        console.log('trails:', trails)
+        res.render('homepage', {trails});
+
+    }) .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+/* Render the comments for the trail selected and send user to comment page*/
+router.get('/:id', (req, res) => {
+    Trail.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id',
+            'name',
+            'length',
+            'dog_friendly',
+            'bike_friendly',
+            'difficulty',
+            'img_ref',
+            'description',
+        ]
+    }) .then(dbTrailData => {
+        
+        // const { img_url } = downloadTrailImage(`${dbTrailData[0].dataValues.img_ref}`);
+        var img_ref = dbTrailData[0].dataValues.img_ref;
+        img_url = router.use('/', (req, res) => {
+            console.log(downloadTrailImage(img_ref))
+            return downloadTrailImage(img_ref);
+        })
+       
+        console.log('img_url:', img_url)
+        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        
+
+        res.render('homepage', {trails});
+    }) .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+
+});
+
+
 
 /* Create a handle to get the value of rating, and send the mount of stars back */
 

@@ -2,15 +2,15 @@ const router = require('express').Router();
 const { download } = require('express/lib/response');
 // const firebase = require('firebase');
 const multer  = require('multer');
-const upload = multer();
-
-// image prefix to Trail filepath store ** CONCAT WITH SNAPSHOT BELOW ** 
-// gs://treaddit.appspot.com/trails/project3.jpg
-
+const upload = multer({ dest: '/public/img/'});
 const { Trail, User, Comment, Rating } = require('../../models');
 const sequelize = require('../../config/connection');
 const Sequelize = require('sequelize');
 const withAuth = require('../../utils/auth');
+
+// image prefix to Trail filepath store ** CONCAT WITH SNAPSHOT BELOW ** 
+// gs://treaddit.appspot.com/trails/project3.jpg
+
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyDyyFmd6Y7okq8KMn7JyROKxfk46gKJfC4",
@@ -27,20 +27,20 @@ const withAuth = require('../../utils/auth');
 // var storage = firebase.storage();
 // var storageRef = storage.ref();
 
-const uploadTrailImage = (trailImage) => {
-    var imageRef = storageRef.child(`/trails/${trailImage.originalname}`)
-    var metaData = {
-        contentType: 'image/jpeg'
-    }
-    return imageRef.put(trailImage.buffer, metaData).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-        console.log(snapshot);
+// const uploadTrailImageFirebase = (trailImage) => {
+//     var imageRef = storageRef.child(`/trails/${trailImage.originalname}`)
+//     var metaData = {
+//         contentType: 'image/jpeg'
+//     }
+//     return imageRef.put(trailImage.buffer, metaData).then((snapshot) => {
+//         console.log('Uploaded a blob or file!');
+//         console.log(snapshot);
 
-        // snapshot._delegate.metadata.fullPath is to store in Trails DB
+//         // snapshot._delegate.metadata.fullPath is to store in Trails DB
 
 
-      });
-}
+//       });
+// }
 
 function downloadTrailImage(img_ref) {
   
@@ -220,8 +220,9 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', upload.single("file"), (req, res) => {
-    // console.log('req.file:', req.file)
-    // uploadTrailImage(req.file)
+    console.log('req.file:', req.file)
+    console.log('req.body:', req.body)
+    // uploadTrailImageFirebase(req.file)
     // .then((result) => {
     //     // res.json(result);
     // console.log('res.json(result):', res.json(result))
@@ -233,7 +234,7 @@ router.post('/', upload.single("file"), (req, res) => {
         bike_friendly: req.body.bike_friendly,
         difficulty: req.body.difficulty,
         description: req.body.description,
-        
+        img_ref: "img/" + req.body.name 
     })
     .then(dbTrailData => res.json(dbTrailData))
     .catch(err => {

@@ -24,9 +24,9 @@
   There, you can create a new user, add to our collection of amazing trails, or offer your opinion of trails that you've been on!
   
   Check out how beautiful it is:
-  Login: 
-  Add a Trail:
-  Homepage: 
+  Login: ![screencapture-localhost-3001-2022-01-27-18_08_23](https://user-images.githubusercontent.com/90655310/151458626-b0084177-536a-460f-a781-06779007f177.png)
+  Add a Trail: ![screencapture-localhost-3001-2022-01-27-18_12_21](https://user-images.githubusercontent.com/90655310/151458741-2d84185d-23ff-406e-a711-f2ba21327f02.png)
+  Homepage: ![screencapture-localhost-3001-2022-01-27-18_08_06](https://user-images.githubusercontent.com/90655310/151458673-fab346b6-b472-49d6-9735-f251fbb4cbcf.png)
 
 ## Contributing
   Just one rule: Don't be evil.

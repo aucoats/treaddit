@@ -1,22 +1,22 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-const firebase = require('firebase');
-const multer  = require('multer');
-const upload = multer();
-const firebaseConfig = {
-    apiKey: "AIzaSyDyyFmd6Y7okq8KMn7JyROKxfk46gKJfC4",
-    authDomain: "treaddit.firebaseapp.com",
-    projectId: "treaddit",
-    storageBucket: "treaddit.appspot.com",
-    messagingSenderId: "964574079370",
-    appId: "1:964574079370:web:7dd35ffdb6443410a78073",
-    measurementId: "G-60MZQ7M7LG"
-};
+// const firebase = require('firebase');
+// const multer  = require('multer');
+// const upload = multer();
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDyyFmd6Y7okq8KMn7JyROKxfk46gKJfC4",
+//     authDomain: "treaddit.firebaseapp.com",
+//     projectId: "treaddit",
+//     storageBucket: "treaddit.appspot.com",
+//     messagingSenderId: "964574079370",
+//     appId: "1:964574079370:web:7dd35ffdb6443410a78073",
+//     measurementId: "G-60MZQ7M7LG"
+// };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
-var storage = firebase.storage();
-var storageRef = storage.ref();
+// var storage = firebase.storage();
+// var storageRef = storage.ref();
 // const storageRef = require('../controllers/api/trail-routes');
 // const downloadTrailImage = require('../controllers/api/trail-routes');
 
@@ -130,4 +130,4 @@ Trail.init(
     }
 )
 
-module.exports = Trail, firebase; 
+module.exports = Trail; 

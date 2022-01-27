@@ -117,6 +117,7 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Comment,
+                where: { trail_id: req.params.id },
                 attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
                 include: {
                     model: User,

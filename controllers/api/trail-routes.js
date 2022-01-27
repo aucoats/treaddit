@@ -105,11 +105,11 @@ router.get('/', (req, res) => {
             {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            {
+                model: User,
+                attributes: ['username']
             }
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
         ]
     })
     .then(dbTrailData => {
@@ -200,10 +200,10 @@ router.get('/:id', (req, res) => {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
             },
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
+            {
+                model: User,
+                attributes: ['username']
+            }
         ]
     })
     .then(dbTrailData => {
@@ -226,20 +226,20 @@ router.post('/', upload.single("file"), (req, res) => {
         // res.json(result);
     console.log('res.json(result):', res.json(result))
 
-    // Trail.create({
-    //     name: req.body.name,
-    //     length: req.body.length,
-    //     dog_friendly: req.body.dog_friendly,
-    //     bike_friendly: req.body.bike_friendly,
-    //     difficulty: req.body.difficulty,
-    //     description: req.body.description,
-        
-    // })
-    // .then(dbTrailData => res.json(dbTrailData))
-    // .catch(err => {
-    //     console.log(err);
-    //     res.status(500).json(err);
-    // });
+    Trail.create({
+        name: req.body.name,
+        length: req.body.length,
+        dog_friendly: req.body.dog_friendly,
+        bike_friendly: req.body.bike_friendly,
+        difficulty: req.body.difficulty,
+        description: req.body.description,
+        user_id: req.session.user_id
+    })
+    .then(dbTrailData => res.json(dbTrailData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 })});
 
 

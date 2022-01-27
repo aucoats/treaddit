@@ -107,11 +107,11 @@ router.get('/', (req, res) => {
             {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            {
+                model: User,
+                attributes: ['username']
             }
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
         ]
     })
     .then(dbTrailData => {
@@ -202,10 +202,10 @@ router.get('/:id', (req, res) => {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
             },
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
+            {
+                model: User,
+                attributes: ['username']
+            }
         ]
     })
     .then(dbTrailData => {

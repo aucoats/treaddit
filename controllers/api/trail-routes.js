@@ -34,7 +34,7 @@ const uploadTrailImageFirebase = (trailImage) => {
     }
     return imageRef.put(trailImage.buffer, metaData).then((snapshot) => {
         console.log('Uploaded a blob or file!');
-        console.log(snapshot);
+        console.log('snapshot:', snapshot)
 
         // snapshot._delegate.metadata.fullPath is to store in Trails DB
 
@@ -114,39 +114,7 @@ router.get('/', (req, res) => {
             // }
         ]
     })
-    .then(dbTrailData => {
-        // console.log('dbTrailData:', dbTrailData)
-        // console.log("dbTrailData[0].dataValues.img_ref:", dbTrailData[0].dataValues.img_ref)
-        
-        // storageRef.child(dbTrailData[0].dataValues.img_ref).getDownloadURL()
-        // .then((url) => {
-        //     dbTrailData[0].dataValues.img_ref = url;
-        // })
-        
-            
-
-        // Or inserted into an <img> element
-        // var img = document.getElementById('myimg');
-        // img.setAttribute('src', url);
-        // var img_ref = dbTrailData[0].dataValues.img_ref;
-        // await downloadTrailImage(img_ref).then(response => {
-        //     dbTrailData[0].dataValues.img_ref = response;
-        //     return dbTrailData;
-        //     // if (document.querySelector(".img-circle")) {
-        //     //     var imgElement = document.querySelector(".img-circle");
-        //     //     imgElement.src=img_url;
-        //     // } 
-        // })
-
-        // console.log('dbTrailData:', dbTrailData)
-        // console.log('img_url:', img_url)
-        // dbTrailData.trail.dataValues.push(img_url);
-        // retrieve image from DB 
-        // create storage reference
-        // pull image from reference 
-        res.json(dbTrailData);
-
-    })
+    .then(dbTrailData => { res.json(dbTrailData); })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -222,8 +190,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', upload.single("file"), (req, res) => {
-    // console.log('req.file:', req.file)
-    // console.log('req.body:', req.body)
+    console.log('req.file:', req.file)
+    console.log('req.body:', req.body)
     uploadTrailImageFirebase(req.file)
     .then((result) => {
         res.json(result);

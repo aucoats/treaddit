@@ -86,16 +86,17 @@
 
         <div class="modal-body">
           <!-- Create New Trail -->
-          <form id="create_trail_form" class="text-center">
-            <div><input type="text" id="trail_name" name="trail_name" placeholder="Trail Name" required/></div></br>
-            <div><input type="text" id="trail_length" name="trail_length" placeholder="Miles" required/></div></br>
+          <form enctype="multipart/form-data" id="create_trail_form" class="text-center">
+            <div><input type="text" id="trail_name" placeholder="Trail Name" required/></div></br>
+            <div><input type="text" id="trail_length" placeholder="Miles" required/></div></br>
 
             <div>
+              <input class="checkbox-inline" type="file" name="filename" id="file_submit">
               <label class="checkbox-inline">
-                <input type="checkbox" id="dog_friendly" name="dog_friendly">Dog Friendly
+                <input type="checkbox" id="dog_friendly">Dog Friendly
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="bike_friendly" name="bike_friendly">Bike Friendly
+                <input type="checkbox" id="bike_friendly">Bike Friendly
               </label>
             </div><br>
 

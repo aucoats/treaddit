@@ -1,20 +1,43 @@
 
-  <div class="container-fluid" style="width: 80%;">
-    <div class="row">
-        <div class="col-sm-12 deck" style="background-color: #d2dee0ff; padding: 10px">
-            <div class="row">
-                <h4 class="col-md-8 col-lg-10">This is a trail </h4>
-                <button id="trashBtn" class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+<div class="container-fluid">
+    {{#each trails}}
+    <!-- itterates through the trails added in db -->
+        <div class="col-sm-6 deck" style="background-color: #d2dee0ff; padding: 10px">
+            <div class="row" style="padding-bottom: 20px;">
+                <h4 class="col-md-8 col-lg-10">{{name}}</h4>
+                <button id="destroyTrailBtn" class="btn" value="{{id}}"><span class="glyphicon glyphicon-trash"></span></button>
                 <button href="#demo" data-toggle="collapse" class="btn"><span class="glyphicon glyphicon-pencil"></span></button>
             </div>
             <div id="demo" class="collapse">
-                <p>Edit Name</p>
-                <p>Edit Miles</p>
-                <p>Edit Difficulty</p>
-                <p>Edit animals</p>
-                <p>Edit image url</p>
-                <p>Edit description</p>
-                <button id="updateBtn" class="btn"><span class="glyphicon glyphicon-save"></span></button>
+                <!-- update trail -->
+                <form enctype="multipart/form-data" id="update_trail_form" >
+                    <div class="row">
+                        <div class="col-sm-9"><input style="width: 100%" type="text" id="update_name" placeholder="{{name}}" required/></div>
+                        <div class="col-sm-3"><input style="width: 100%;" type="text" id="update_length" placeholder="{{length}}mil(s)" required/></div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="update_animals">Dog Friendly
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="update_bike">Bike Friendly
+                        </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="update_diff" name="difficulty">
+                                <option value="Easy">Easy</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Difficult">Difficult</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div><textarea type="text" id="update_descri" name="description" rows="4" placeholder="{{description}}" required></textarea></div></br>
+                    <button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="update_trail">Update Trail</button>
+                </form>
             </div>
         </div>
-    </div>
+    {{/each}}
+</div>
+
+<script src="/javascript/commentHandler.js"></script>

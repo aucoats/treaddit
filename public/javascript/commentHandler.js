@@ -1,3 +1,5 @@
+// const { Json } = require("sequelize/dist/lib/utils");
+
 const createCommentForm = document.querySelector("#comment-form");
 
 createCommentForm.addEventListener('submit', async (e) => {
@@ -33,6 +35,20 @@ createCommentForm.addEventListener('submit', async (e) => {
     await fetch('api/ratings', ratingRequest)
         .then(response => response.json())
         .catch(err => console.log(err));
+        // .catch(async function(err) {
+        //     console.log('err:', err)
+        //     if (err) {
+        //         const ratingPutRequest = {
+        //             method: 'PUT', 
+        //             headers: { 'Content-Type': 'application/json' },
+        //             body:JSON.stringify(ratingData)
+        //         }
+
+        //         await fetch('api/ratings', ratingPutRequest)
+        //         .then(response => response.json())
+        //         .catch(err => console.log(err));
+        //     }
+    
 
     // const resolvedRatingDataPost = await ratingDataPost.json();
     // alert(resolvedRatingDataPost.message);
@@ -69,6 +85,4 @@ createCommentForm.addEventListener('submit', async (e) => {
 
     const resolvedData  = await data.json();
     alert(resolvedData.message);
-
-
-})
+});

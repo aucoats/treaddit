@@ -215,43 +215,6 @@ router.post('/', upload.single("file"), (req, res) => {
     });
 })});
 
-
-router.post('/rating/:id', withAuth, (req, res) => {
-
-    Rating.create({
-        rating: req.body.rating,
-        trail_id: req.params.id,
-        user_id: req.session.user_id
-    })
-    .then(ratingData => res.json(ratingData))
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
-
-router.put('/rating/:id', withAuth, (req, res) => {
-    console.log(req.body);
-    Rating.update(req.body, {
-        where: {
-            id: req.params.id,
-            user_id: req.session.user_id
-        }
-    })
-    .then(dbTrailData => {
-        if(!dbTrailData) {
-            res.status(404).json({ message: 'No Rating found with this id' });
-            return;
-        }
-        res.json(dbTrailData);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-})
-
-
 router.put('/:id', withAuth, (req, res) => {
     Trail.update(
         {

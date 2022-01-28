@@ -106,7 +106,6 @@ createTrailForm.addEventListener('submit', async (e) => {
     document.getElementById('create_trail_form').reset()
 
     //close modal
-    console.log(data);
     closeAllModals();
     window.location.reload();
 });

@@ -10,7 +10,8 @@ User.hasMany(Trail, {
 });
 
 Trail.belongsTo(User, {
-    foreignKey: 'user_id'
+    foreignKey: 'user_id',
+    onDelete: 'SET NULL'
 })
 
 User.belongsToMany(Trail, {
@@ -50,7 +51,7 @@ User.hasMany(Rating, {
 });
 
 Rating.belongsTo(User, {
-    foreignKey: 'user_id'
+    foreignKey: 'user_id',
 });
 
 Trail.hasMany(Favorite, {

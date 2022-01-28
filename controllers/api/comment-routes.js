@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Comment, Rating } = require('../../models');
 
 router.get('/', (req, res) => {
     Comment.findAll()
@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
-    });
+    });   
 });
 
 router.delete('/:id', (req, res) => {

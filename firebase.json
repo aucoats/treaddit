@@ -1,12 +1,5 @@
 {
-<<<<<<< HEAD
-    "storage": {
-      "rules": "storage.rules"
-    }
-  }
-=======
   "storage": {
     "rules": "storage.rules"
   }
 }
->>>>>>> feature/firebase

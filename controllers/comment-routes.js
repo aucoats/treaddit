@@ -9,22 +9,12 @@ const helpers = require('../utils/helpers');
 const { download } = require('express/lib/response');
 const hbs = exphbs.create({ helpers });
 
-/* helper functiont display bootstrap/pill background color */
-hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
-    if(difficulty == "Easy"){
-        return "success"
-    }
-    if(difficulty == "Moderate"){
-        return "warning"
-    }
-    if(difficulty == "Difficult"){
-        return "danger"
-    }
-});
-
-/* Loading all trails to homepage on render */
-router.get('/', (req, res) => {
-    Trail.findAll({
+/* Render the comments for the trail selected and send user to comment page*/
+router.get('/:id', (req, res) => {
+    Trail.findOne({
+        where: {
+            id: req.params.id
+        },
         attributes: [
             'id',
             'name',
@@ -32,13 +22,13 @@ router.get('/', (req, res) => {
             'dog_friendly',
             'bike_friendly',
             'difficulty',
+            'img_ref',
             'description',
-            'img_ref'
         ],
-        group: 'id',
         include: [
             {
                 model: Comment,
+                where: { trail_id: req.params.id },
                 attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
@@ -48,25 +38,20 @@ router.get('/', (req, res) => {
             {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-            }
+            },
             // {
             //     model: User,
             //     attributes: ['username']
             // }
         ]
-    })
-    .then(dbTrailData => {
-        if(!dbTrailData) {
-            res.status(404).json({message: 'No trail found'})
-            return;
-        }
-        const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        res.render('homepage', {trails}); // regardless if logged in can view, favorite&mytrails will only show if loggedIn
-
+    }).then(dbTrailData => {
+        const trail = dbTrailData.get({ plain: true });
+        res.render('comment', {trail}); //user logged off can view, user loggedin can add/rate
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
+
 });
 
 module.exports = router; 

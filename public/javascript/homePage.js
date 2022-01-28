@@ -24,7 +24,6 @@ loginForm.addEventListener('submit', async (e) => {
     .catch(err => console.log(err));
 
     const resolvedData  = await data.json();
-    alert(resolvedData.message);
 
     //error handling
     if(data.status && data.status !== 200 ) {
@@ -83,31 +82,26 @@ const createDogFriendly = createTrailForm.querySelector('#dog_friendly');
 const createBikeFriendly = createTrailForm.querySelector('#bike_friendly');
 const createDifficulty = createTrailForm.querySelector('#difficulty');
 const createDescription = createTrailForm.querySelector('#description');
+const createImgRef = createTrailForm.querySelector('#file_submit');
 
 createTrailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    //logic to get form data
-    const formData = {
-        name: createTrailName.value,
-        length: createTrailLength.value,
-        dog_friendly: createDogFriendly.value === 'on',
-        bike_friendly: createBikeFriendly.value === 'on',
-        difficulty: createDifficulty.value,
-        description: createDescription.value
-    }
-    //api call
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-    };
+    var formData = new FormData()
+    formData.append('file', createImgRef.files[0])
+    formData.append('name', createTrailName.value)
+    formData.append('length', createTrailLength.value)
+    formData.append('dog_friendly', createDogFriendly.value === 'on')
+    formData.append('bike_friendly', createBikeFriendly.value === 'on')
+    formData.append('difficulty', createDifficulty.value)
+    formData.append('description', createDescription.value)
 
-    //validate success, reset form
-    const data = await fetch('api/trails', requestOptions)
-    .then(response => response.json())
-    
-    .catch(err => console.log(err));
+    //api call
+
+    fetch('/api/trails', {
+        method: 'POST', 
+        body: formData
+    })
 
     document.getElementById('create_trail_form').reset()
 
@@ -116,6 +110,25 @@ createTrailForm.addEventListener('submit', async (e) => {
     closeAllModals();
     window.location.reload();
 });
+
+// logout function
+async function logout() {
+    const response = await fetch('/api/users/logout', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert(response.statusText);
+    }
+  }
+  
+const logoutBtn = document.querySelector('#logout-btn')
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', logout);
+}
 
 //function to close modals
 const loginModal = document.getElementById('loginModal');

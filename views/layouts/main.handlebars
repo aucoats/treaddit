@@ -20,7 +20,11 @@
         <!-- display fav, add trail btn, and login btn-->
         <ul class="nav navbar-nav navbar-right">
           <button id="add-trail-btn" class="btn navbar-btn" data-toggle="modal" data-target="#addTrailModal"><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
+          {{#if loggedIn}}
+          <button id="logout-btn" class="btn navbar-btn">Logout</button>
+          {{else}}
           <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
+          {{/if}}
         </ul>
       </div>
     </nav>
@@ -83,16 +87,17 @@
 
         <div class="modal-body">
           <!-- Create New Trail -->
-          <form id="create_trail_form" class="text-center">
-            <div><input type="text" id="trail_name" name="trail_name" placeholder="Trail Name" required/></div></br>
-            <div><input type="text" id="trail_length" name="trail_length" placeholder="Miles" required/></div></br>
+          <form enctype="multipart/form-data" id="create_trail_form" class="text-center">
+            <div><input type="text" id="trail_name" placeholder="Trail Name" required/></div></br>
+            <div><input type="text" id="trail_length" placeholder="Miles" required/></div></br>
 
             <div>
+              <input class="checkbox-inline" type="file" name="filename" id="file_submit">
               <label class="checkbox-inline">
-                <input type="checkbox" id="dog_friendly" name="dog_friendly">Dog Friendly
+                <input type="checkbox" id="dog_friendly">Dog Friendly
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="bike_friendly" name="bike_friendly">Bike Friendly
+                <input type="checkbox" id="bike_friendly">Bike Friendly
               </label>
             </div><br>
 
@@ -113,9 +118,8 @@
   <main style="padding: 5%;">
     {{{ body }}}
   </main>
-  
-  
+  <script type="text/javascript" src="/javascript/homePage.js"></script>
 </body>
-<script src="/javascript/homePage.js"></script>
+
 
 </html>

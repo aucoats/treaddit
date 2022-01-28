@@ -20,9 +20,10 @@
         <!-- display fav, add trail btn, and login btn-->
         <ul class="nav navbar-nav navbar-right">
           <button id="add-trail-btn" class="btn navbar-btn" data-toggle="modal" data-target="#addTrailModal"><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
-          <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
           {{#if loggedIn}}
           <button id="logout-btn" class="btn navbar-btn">Logout</button>
+          {{else}}
+          <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
           {{/if}}
         </ul>
       </div>

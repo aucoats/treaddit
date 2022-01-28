@@ -10,19 +10,22 @@
               <button class="btn filterBtn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>
           </div>
+         {{#if loggedIn}}
           <div class="input-group">
-              <a id="favorite-btn" class="btn filterBtn" href="/favorites/1" > Favorites <span class="glyphicon glyphicon-heart"></span></a>
+              <a id="favorite-btn" class="btn filterBtn" href="/favorites" > Favorites <span class="glyphicon glyphicon-heart"></span></a>
           </div>
               <div class="input-group">
-              <a id="myTrail-btn" class="btn filterBtn" href="/users/1"> My Trails <span class="glyphicon glyphicon-cog"></span></a>
+              <a id="myTrail-btn" class="btn filterBtn" href="/mytrails"> My Trails <span class="glyphicon glyphicon-cog"></span></a>
           </div>
+          {{/if}}
+          
         </form>
     </div>
   </section>
 
 <div class="container-fluid">
     {{#each trails}}
-    {{!-- {{#if (multiof4 id)}}<div class="row">{{/if}} --}}
+    <!-- itterates through the trails added in db -->
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
                 <nav class="navbar">
@@ -55,10 +58,10 @@
                                 <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
                             </div>
                         </div>
-                        <a href="/{{id}}">view {{comment.length}} comments(s) </a>
+                        <!-- takes it to url for the commet page for that specific trail -->
+                        <a href="/comment/{{id}}">view {{comment.length}} comments(s) </a>
                     </div>
             </div>
-        </div>
-    {{!-- {{#if (multiof3 id)}}</div>{{/if}} --}}
     {{/each}}
 </div>
+

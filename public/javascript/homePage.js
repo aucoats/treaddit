@@ -140,3 +140,34 @@ function closeAllModals () {
         modal.classList.remove('in');
     })
 };
+
+//add favorite trail
+
+const favButton = document.querySelectorAll('.btn.favBtn');
+
+favButton.forEach( (favorite) =>{
+    favorite.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const favData = {
+        favorite: true,
+        trail_id: favorite.id
+    }
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(favData)
+    };
+
+    const data = await fetch('api/favorites', requestOptions)
+    .then(response => response.json())
+    .catch(err => console.log(err));
+    console.log(data);
+    });
+
+});
+
+//update favorite DB
+
+//change button image

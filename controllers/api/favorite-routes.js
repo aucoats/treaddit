@@ -3,7 +3,7 @@ const { Favorite } = require('../../models');
 
 router.get('/', (req, res) => {
     Favorite.findAll()
-    .then(dbCommentData => res.json(dbCommentData))
+    .then(favoriteData => res.json(favoriteData))
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -12,30 +12,11 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     Favorite.create({
-        comment_text: req.body.comment_text,
+        favorite: req.body.favorite,
         user_id: req.session.user_id,
         trail_id: req.body.trail_id
     })
-    .then(dbCommentData => res.json(dbCommentData))
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
-});
-
-router.delete('/:id', (req, res) => {
-    Favorite.destroy({
-        where: {
-            id: req.params.id
-        }
-    })
-    .then(dbCommentData => {
-        if (!dbCommentData) {
-            res.status(404).json({ message: 'No comment found with this id' });
-            return;
-        }
-        res.json(dbCommentData);
-    })
+    .then(favoriteData => res.json(favoriteData))
     .catch(err => {
         console.log(err);
         res.status(500).json(err);

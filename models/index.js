@@ -6,8 +6,12 @@ const Comment = require('./Comment')
 
 
 User.hasMany(Trail, {
-    foreignKey: 'posted_by'
+    foreignKey: 'user_id'
 });
+
+Trail.belongsTo(User, {
+    foreignKey: 'user_id'
+})
 
 User.belongsToMany(Trail, {
     through: Rating, 

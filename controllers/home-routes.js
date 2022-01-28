@@ -87,7 +87,7 @@ router.get('/', (req, res) => {
             return;
         }
         const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        res.render('homepage', {trails, loggedIn: req.session.loggedIn});
+        res.render('homepage', {trails, loggedIn: req.session.loggedIn, user_id: req.session.user_id});
 
     }) .catch(err => {
         console.log(err);

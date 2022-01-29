@@ -96,9 +96,9 @@ router.get('/', (req, res) => {
             let isFavorite = false;
             const favorites = trail.favorites;
             favorites.forEach(fav => {
-                console.log(fav.user_id);
+                // console.log('user ID from home-routes api', fav.user_id);
              if(fav.user_id === req.session.user_id) {
-                 console.log("hello");
+                // console.log('user ID from if - from home-routes api', fav.user_id);
                  isFavorite = true;
              };
             });

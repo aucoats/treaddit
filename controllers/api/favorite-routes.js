@@ -3,7 +3,13 @@ const { Favorite } = require('../../models');
 
 router.get('/', (req, res) => {
     Favorite.findAll()
-    .then(favoriteData => res.json(favoriteData))
+    .then(favoriteData => {
+        console.log('user id from favorite-routes',req.session.user_id)
+        favoriteData = {
+            loggedUserId: req.session.user_id,
+            favorites: favoriteData
+        }
+        res.json(favoriteData)})
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -22,5 +28,6 @@ router.post('/', (req, res) => {
         res.status(500).json(err);
     });
 });
+
 
 module.exports = router;

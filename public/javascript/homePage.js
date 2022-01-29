@@ -146,6 +146,7 @@ function closeAllModals () {
 const favButton = document.querySelectorAll('.btn.favBtn');
 
 favButton.forEach( (favorite) =>{
+
     favorite.addEventListener('click', async (e) => {
     e.preventDefault();
 
@@ -169,6 +170,18 @@ favButton.forEach( (favorite) =>{
     });
 
 });
+
+//get favorites
+
+const requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("/api/favorites", requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 
 //update favorite DB
 

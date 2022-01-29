@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const Sequelize = require('sequelize');
-const { Trail, User, Comment, Rating } = require('../models');
+const { Trail, User, Comment, Rating, Favorite } = require('../models');
 const storageRef = require('./api/trail-routes');
 const downloadTrailImage = require('./api/trail-routes');
 const exphbs = require('express-handlebars');
@@ -74,6 +74,10 @@ router.get('/', (req, res) => {
             {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            {
+                model: Favorite,
+                attributes: ['id', 'favorite', 'user_id', 'trail_id']
             }
             // {
             //     model: User,
@@ -87,6 +91,23 @@ router.get('/', (req, res) => {
             return;
         }
         const trails = dbTrailData.map(trail => trail.get({ plain: true }));
+        //iterate for each trail on page load, examine favorites for user_id, set isFavorite to true if favorites contains logged in used_id
+        const favoritesAdded = trails.map(trail => {
+            let isFavorite = false;
+            const favorites = trail.favorites;
+            favorites.forEach(fav => {
+                console.log(fav.user_id);
+             if(fav.user_id === req.session.user_id) {
+                 console.log("hello");
+                 isFavorite = true;
+             };
+            });
+            trail['isFavorite'] = isFavorite;
+            
+            return trail;
+        });
+        console.log("user id")
+        console.log(req.session.user_id);
         res.render('homepage', {trails, loggedIn: req.session.loggedIn, user_id: req.session.user_id});
 
     }) .catch(err => {

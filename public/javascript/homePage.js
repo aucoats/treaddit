@@ -149,11 +149,13 @@ favButton.forEach( (favorite) =>{
     favorite.addEventListener('click', async (e) => {
     e.preventDefault();
 
+    const spanQuery = favorite.querySelector('span')
+    console.log(spanQuery)
     const favData = {
         favorite: true,
         trail_id: favorite.id
     }
-
+    console.log(favorite.id)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

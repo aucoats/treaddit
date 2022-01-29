@@ -9,6 +9,10 @@ User.hasMany(Trail, {
     foreignKey: 'posted_by'
 });
 
+User.hasMany(Favorite, {
+    foreignKey: 'posted_by'
+});
+
 User.belongsToMany(Trail, {
     through: Rating, 
     as: 'rated_trails',

@@ -2,8 +2,6 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const Sequelize = require('sequelize');
 const { Trail, User, Comment, Rating } = require('../models');
-const storageRef = require('./api/trail-routes');
-const downloadTrailImage = require('./api/trail-routes');
 const exphbs = require('express-handlebars');
 const helpers = require('../utils/helpers');
 const { download } = require('express/lib/response');
@@ -35,7 +33,7 @@ router.get('/', (req, res) => {
             'description',
             'img_ref'
         ],
-        group: 'id',
+        group: ['id'], 
         include: [
             {
                 model: Comment,
@@ -48,11 +46,11 @@ router.get('/', (req, res) => {
             {
                 model: Rating,
                 attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            },
+            {
+                model: User,
+                attributes: ['username']
             }
-            // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
         ]
     })
     .then(dbTrailData => {
@@ -61,7 +59,8 @@ router.get('/', (req, res) => {
             return;
         }
         const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        res.render('homepage', {trails}); // regardless if logged in can view, favorite&mytrails will only show if loggedIn
+        console.log('trails:', trails)
+        res.status(200).render('homepage', {trails, loggedIn: req.session.loggedIn}); // regardless if logged in can view, favorite&mytrails will only show if loggedIn
 
     }) .catch(err => {
         console.log(err);
@@ -69,6 +68,50 @@ router.get('/', (req, res) => {
     });
 });
 
+// router.get('/:id', (req, res) => {
+//     Trail.findOne({
+//         where: {
+//             id: req.params.id
+//         },
+//         attributes: [
+//             'id',
+//             'name',
+//             'length',
+//             'dog_friendly',
+//             'bike_friendly',
+//             'difficulty',
+//             'img_ref',
+//             'description',
+//         ],
+//         include: [
+//             {
+//                 model: Comment,
+//                 attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
+//                 include: {
+//                     model: User,
+//                     attributes: ['username']
+//                 }
+//             },
+//             // {
+//             //     model: Rating,
+//             //     attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+//             // },
+//             // {
+//             //     model: User,
+//             //     attributes: ['username']
+//             // }
+//         ]
+//     }).then(dbTrailData => {
+//         const trail = dbTrailData.get({ plain: true });
+//         console.log('trail:', trail)
+//         res.render('comment', {trail, loggedIn: req.session.loggedIn});
+//     }) .catch(err => {
+//         console.log(err);
+//         res.status(500).json(err);
+//     });
+
+// });
+
 module.exports = router; 
-=======
+
 

@@ -18,8 +18,9 @@ loginForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
 
+
     //validate success -- need to figure out error handling
-    const data = await fetch('api/users/login', requestOptions)
+    const data = await fetch('/api/users/login', requestOptions)
     .then(response => response)
     .catch(err => console.log(err));
 

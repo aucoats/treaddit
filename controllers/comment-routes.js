@@ -28,7 +28,6 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Comment,
-                where: { trail_id: req.params.id },
                 attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
@@ -36,17 +35,18 @@ router.get('/:id', (req, res) => {
                 }
             },
             {
-                model: Rating,
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-            },
+                model: Rating, 
+                attributes: ['rating'],
+            }
             // {
-            //     model: User,
-            //     attributes: ['username']
-            // }
-        ]
+            //     model: Rating,
+            //     attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            // },
+        ],
     }).then(dbTrailData => {
         const trail = dbTrailData.get({ plain: true });
-        res.render('comment', {trail}); //user logged off can view, user loggedin can add/rate
+        console.log('trail:', trail)
+        res.render('comment', {trail, loggedIn: req.session.loggedIn}); //user logged off can view, user loggedin can add/rate
     }) .catch(err => {
         console.log(err);
         res.status(500).json(err);

@@ -24,7 +24,7 @@
   </section>
 
 <div class="container-fluid">
-    {{#each trails}}
+    {{#each trails as |trail|}}
     <!-- itterates through the trails added in db -->
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
@@ -59,9 +59,10 @@
                             </div>
                         </div>
                         <!-- takes it to url for the commet page for that specific trail -->
-                        <a href="/comment/{{id}}">view {{comment.length}} comments(s) </a>
+                        <a href="/comment/{{id}}">view {{comments.length}} comments(s) </a>
                     </div>
             </div>
+        </div>
     {{/each}}
 </div>
 

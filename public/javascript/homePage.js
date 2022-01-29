@@ -142,47 +142,69 @@ function closeAllModals () {
 };
 
 //add favorite trail
-
-const favButton = document.querySelectorAll('.btn.favBtn');
-
-favButton.forEach( (favorite) =>{
-
-    favorite.addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    const spanQuery = favorite.querySelector('span')
-    console.log(spanQuery)
-    const favData = {
-        favorite: true,
-        trail_id: favorite.id
-    }
-    console.log(favorite.id)
+//get favorites by user from api
+async function getFav() {
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(favData)
-    };
-
-    const data = await fetch('api/favorites', requestOptions)
-    .then(response => response.json())
-    .catch(err => console.log(err));
-    console.log(data);
-    });
-
-});
-
-//get favorites
-
-const requestOptions = {
     method: 'GET',
     redirect: 'follow'
   };
   
-  fetch("/api/favorites", requestOptions)
+const favButton = document.querySelectorAll('.btn.favBtn');
+const favByUser = await fetch("/api/favorites", requestOptions)
     .then(response => response.json())
-    .then(result => console.log(result))
+    // .then(result => console.log(result))
     .catch(error => console.log('error', error));
 
-//update favorite DB
+    //iterate through trail tiles by favorite button
+    favButton.forEach(favorite => {
 
-//change button image
+        const spanQuery = favorite.querySelector('span')
+
+        //assessing if trail is in user's favorites and updating icon if so
+        favByUser.forEach(fav => {
+            if(fav.trail_id == favorite.id && fav.favorite){
+            heartToggle(spanQuery)
+            }
+        })
+
+        //click behavior: add/remove favorites
+        favorite.addEventListener('click', async (e) => {
+        e.preventDefault();
+    
+        const addFav = spanQuery.classList.contains("glyphicon-heart-empty")
+
+        const favData = {
+            favorite: addFav,
+            trail_id: favorite.id
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(favData)
+        };
+    
+        const data = await fetch('api/favorites', requestOptions)
+        .then(response => response.json())
+        .catch(err => console.log(err));
+        if(!data.message){
+            heartToggle(spanQuery);
+        }else{
+            alert(data.message)
+        }
+        });
+
+    });
+};
+
+const heartToggle = function(span){
+    if(span.classList.contains("glyphicon-heart-empty")){
+        span.classList.remove("glyphicon-heart-empty");
+        span.classList.add("glyphicon-heart");
+    } else {
+        span.classList.remove("glyphicon-heart");
+        span.classList.add("glyphicon-heart-empty");
+    }
+};
+
+getFav();

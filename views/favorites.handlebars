@@ -10,14 +10,58 @@
               <button class="btn filterBtn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>
           </div>
+         {{#if loggedIn}}
           <div class="input-group">
-              <a id="favorite-btn" class="btn filterBtn" href="/favorites/1" > Favorites <span class="glyphicon glyphicon-heart"></span></a>
+              <a id="favorite-btn" class="btn filterBtn" href="/favorites" > Favorites <span class="glyphicon glyphicon-heart"></span></a>
           </div>
               <div class="input-group">
-              <a id="myTrail-btn" class="btn filterBtn" href="/users/1" > My Trails <span class="glyphicon glyphicon-cog"></span></a>
+              <a id="myTrail-btn" class="btn filterBtn" href="/mytrails"> My Trails <span class="glyphicon glyphicon-cog"></span></a>
           </div>
+          {{/if}}
+          
         </form>
     </div>
   </section>
 
-<p>Users favorites will display here </p>
+
+<div class="container-fluid">
+    {{#each trails}}
+    <!-- itterates through the trails added in db -->
+        <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
+            <div class="text-center">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                        <h5>{{name}}</h5>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                        <button id="{{id}}" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
+                        </ul>
+                    </div>
+                </nav>
+                    <a href="#demo{{id}}" data-toggle="collapse">
+                        <img src="{{img_ref}}" class="img-circle card" alt="Trail Image" width="255" height="255">
+                    </a><br>
+                    <ul class="list-inline">
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>
+                        <li><span class="glyphicon glyphicon-star"></span></li>    
+                    </ul>
+                    <div id="demo{{id}}" class="collapse">
+                        <p>{{length}} miles | <span class="label label-{{difficultyLevel difficulty}}">{{difficulty}}</span> </p>
+                        <div class="row">
+                            <div class="col-sm-6 text-center">
+                                <p>Animals {{#if dog_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <p>Bikes {{#if bike_friendly }}<span class="glyphicon glyphicon-ok"></span>{{else}}<span class="glyphicon glyphicon-remove"></span>{{/if}}</p>
+                            </div>
+                        </div>
+                        <!-- takes it to url for the commet page for that specific trail -->
+                        <a href="/comment/{{id}}">view {{comment.length}} comments(s) </a>
+                    </div>
+            </div>
+    {{/each}}
+</div>

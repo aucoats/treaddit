@@ -25,6 +25,9 @@ hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
 /* Loading all trails to homepage on render */
 router.get('/', (req, res) => {
     Trail.findAll({
+        where: {
+            user_id: req.session.user_id
+        },
         attributes: [
             'id',
             'name',
@@ -61,7 +64,7 @@ router.get('/', (req, res) => {
             return;
         }
         const trails = dbTrailData.map(trail => trail.get({ plain: true }));
-        res.render('homepage', {trails}); // regardless if logged in can view, favorite&mytrails will only show if loggedIn
+        res.render('mytrails', {trails}); 
 
     }) .catch(err => {
         console.log(err);
@@ -69,6 +72,4 @@ router.get('/', (req, res) => {
     });
 });
 
-module.exports = router; 
-=======
-
+module.exports = router;

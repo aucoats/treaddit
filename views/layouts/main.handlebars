@@ -20,9 +20,10 @@
         <!-- display fav, add trail btn, and login btn-->
         <ul class="nav navbar-nav navbar-right">
           <button id="add-trail-btn" class="btn navbar-btn" data-toggle="modal" data-target="#addTrailModal"><span class="glyphicon glyphicon-plus"></span> Add Trail </button>
-          <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
           {{#if loggedIn}}
           <button id="logout-btn" class="btn navbar-btn">Logout</button>
+          {{else}}
+          <button id="login-btn" class="btn navbar-btn" data-toggle="modal" data-target="#loginModal" ><span class="glyphicon glyphicon-user"></span> Login </button>
           {{/if}}
         </ul>
       </div>
@@ -86,27 +87,34 @@
 
         <div class="modal-body">
           <!-- Create New Trail -->
-          <form enctype="multipart/form-data" id="create_trail_form" class="text-center">
-            <div><input type="text" id="trail_name" placeholder="Trail Name" required/></div></br>
-            <div><input type="text" id="trail_length" placeholder="Miles" required/></div></br>
-
-            <div>
-              <input class="checkbox-inline" type="file" name="filename" id="file_submit">
-              <label class="checkbox-inline">
-                <input type="checkbox" id="dog_friendly">Dog Friendly
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="bike_friendly">Bike Friendly
-              </label>
-            </div><br>
-
-            <div><input type="text" id="difficulty" name="difficulty" placeholder="Difficulty" required></div></br>
-            <div><input type="text" id="description" name="description" placeholder="Brief trail description..." required></div></br>
-            <button class="btn btn-success" style="background-color: #809712ff;" type="submit" value="Create Trail">Add New Trail</button>
+          <form enctype="multipart/form-data" id="create_trail_form" >
+                    <div class="row">
+                        <div class="col-sm-9"><input style="width: 100%" type="text" id="trail_name" placeholder="Trail Name" required/></div>
+                        <div class="col-sm-3"><input style="width: 100%;" type="text" id="trail_length" placeholder="5 mil(s)" required/></div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="dog_friendly">Dog Friendly
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="bike_friendly">Bike Friendly
+                        </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="difficulty" name="difficulty">
+                                <option value="Easy">Easy</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Difficult">Difficult</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div><textarea type="text" id="description" name="description" rows="4" placeholder="I enjoyed this trail..." required></textarea></div></br>
+                    <div class="row">
+                        <input class="col-sm-7" type="file" name="filename" id="file_submit">
+                        <button class="btn btn-success col-sm-5" style="background-color: #809712ff; width: 30%;" type="submit" value="Create Trail">Create New Trail</button>
+                    </div>
           </form>
-            
-
-        </div>
 
 
       </div> 

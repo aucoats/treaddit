@@ -205,6 +205,7 @@ router.post('/', upload.single("file"), (req, res) => {
         bike_friendly: req.body.bike_friendly,
         difficulty: req.body.difficulty,
         description: req.body.description,
+        user_id: req.session.user_id,
         img_ref: url
     })
     // .then(dbTrailData => res.json(dbTrailData))

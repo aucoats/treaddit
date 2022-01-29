@@ -18,7 +18,7 @@ loginForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
 
-    //validate success -- need to figure out error handling
+    //validate success
     const data = await fetch('api/users/login', requestOptions)
     .then(response => response)
     .catch(err => console.log(err));
@@ -27,11 +27,11 @@ loginForm.addEventListener('submit', async (e) => {
 
     //error handling
     if(data.status && data.status !== 200 ) {
+        alert(resolvedData.message);
         loginForm.reset();
     } else {
     //close modal
     closeAllModals();
-    window.location.reload();
     };
 });
 
@@ -58,7 +58,8 @@ createUserForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
     console.log(requestOptions);
-    //validate success -- need to figure out error handling
+
+    //validate success
     const data = await fetch('api/users', requestOptions)
     .then(response => response.json())
     .then(data => {
@@ -98,7 +99,7 @@ createTrailForm.addEventListener('submit', async (e) => {
 
     //api call
 
-    fetch('/api/trails', {
+    const data= await fetch('/api/trails', {
         method: 'POST', 
         body: formData
     })

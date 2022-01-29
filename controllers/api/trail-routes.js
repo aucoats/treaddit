@@ -94,7 +94,6 @@ router.get('/', (req, res) => {
             'description',
             'img_ref'
         ],
-        group: 'id',
         include: [
             {
                 model: Comment,
@@ -104,10 +103,10 @@ router.get('/', (req, res) => {
                     attributes: ['username']
                 }
             },
-            {
-                model: Rating,
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-            },
+            // {
+            //     model: Rating,
+            //     attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            // },
             {
                 model: User,
                 attributes: ['username']

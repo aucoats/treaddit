@@ -6,12 +6,16 @@ const Comment = require('./Comment')
 
 
 User.hasMany(Trail, {
-    foreignKey: 'posted_by'
+    foreignKey: 'user_id'
 });
 
 User.hasMany(Favorite, {
     foreignKey: 'posted_by'
 });
+Trail.belongsTo(User, {
+    foreignKey: 'user_id',
+    onDelete: 'SET NULL'
+})
 
 User.belongsToMany(Trail, {
     through: Rating, 
@@ -50,7 +54,7 @@ User.hasMany(Rating, {
 });
 
 Rating.belongsTo(User, {
-    foreignKey: 'user_id'
+    foreignKey: 'user_id',
 });
 
 Trail.hasMany(Favorite, {

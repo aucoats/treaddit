@@ -5,7 +5,20 @@ const { User, Trail } = require('../../models');
 //Get all users
 router.get('/', (req, res) => {
     User.findAll({
-        attributes: { exclue: ['password'] }
+        attributes: { exclue: ['password'] },
+        include: [
+            {
+                model: Trail, 
+                attributes: [
+                    'name',
+                    'length',
+                    'dog_friendly',
+                    'bike_friendly',
+                    'difficulty',
+                    'description',
+                ]
+            }
+        ]
     })
     .then(userData => res.json(userData))
     .catch(err => {

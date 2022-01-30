@@ -94,7 +94,6 @@ router.get('/', (req, res) => {
             'description',
             'img_ref'
         ],
-        group: 'id',
         include: [
             {
                 model: Comment,
@@ -104,10 +103,10 @@ router.get('/', (req, res) => {
                     attributes: ['username']
                 }
             },
-            {
-                model: Rating,
-                attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-            },
+            // {
+            //     model: Rating,
+            //     attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
+            // },
             {
                 model: Favorite,
                 attributes: ['id', 'favorite', 'user_id', 'trail_id']
@@ -210,6 +209,7 @@ router.post('/', upload.single("file"), (req, res) => {
         bike_friendly: req.body.bike_friendly,
         difficulty: req.body.difficulty,
         description: req.body.description,
+        user_id: req.session.user_id,
         img_ref: url
     })
     // .then(dbTrailData => res.json(dbTrailData))
@@ -285,7 +285,7 @@ router.put('/:id', withAuth, (req, res) => {
     });
 });
 
-router.delete('/:id', withAuth, (req, res) => {
+router.delete('/:id', (req, res) => {
     Trail.destroy({
         where: {
             id: req.params.id

@@ -1,3 +1,4 @@
+<h1 class="text-center">My Favorites</h1>
 <!-- Filter Bar -->
   <section>
     <div class="text-center" style="padding: 20px;">
@@ -12,7 +13,7 @@
           </div>
          {{#if loggedIn}}
           <div class="input-group">
-              <a id="favorite-btn" class="btn filterBtn" href="/favorites" > Favorites <span class="glyphicon glyphicon-heart"></span></a>
+              <a id="favorite-btn" class="btn filterBtn" href="/" > See All Trails </a>
           </div>
               <div class="input-group">
               <a id="myTrail-btn" class="btn filterBtn" href="/mytrails"> My Trails <span class="glyphicon glyphicon-cog"></span></a>
@@ -23,9 +24,8 @@
     </div>
   </section>
 
-
 <div class="container-fluid">
-    {{#each trails}}
+    {{#each trails as |trail|}}
     <!-- itterates through the trails added in db -->
         <div class="col-sm-4 deck" style="background-color: #d2dee0ff; padding: 10px">
             <div class="text-center">
@@ -35,7 +35,8 @@
                         <h5>{{name}}</h5>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
-                        <button id="{{id}}" class="btn" ><span class="glyphicon glyphicon-heart-empty"></span></button>
+                        <button id="{{id}}" class="btn favBtn"><span class="glyphicon glyphicon-heart-empty"></span>
+                        </button>
                         </ul>
                     </div>
                 </nav>
@@ -60,8 +61,10 @@
                             </div>
                         </div>
                         <!-- takes it to url for the commet page for that specific trail -->
-                        <a href="/comment/{{id}}">view {{comment.length}} comments(s) </a>
+                        <a href="/comment/{{id}}">view {{comments.length}} comment(s) </a>
                     </div>
             </div>
+        </div>
     {{/each}}
 </div>
+

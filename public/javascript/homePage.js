@@ -18,9 +18,8 @@ loginForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
 
-
-    //validate success -- need to figure out error handling
-    const data = await fetch('/api/users/login', requestOptions)
+    //validate success
+    const data = await fetch('api/users/login', requestOptions)
     .then(response => response)
     .catch(err => console.log(err));
 
@@ -28,6 +27,7 @@ loginForm.addEventListener('submit', async (e) => {
 
     //error handling
     if(data.status && data.status !== 200 ) {
+        alert(resolvedData.message);
         loginForm.reset();
     } else {
     //close modal
@@ -59,7 +59,8 @@ createUserForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
     console.log(requestOptions);
-    //validate success -- need to figure out error handling
+
+    //validate success
     const data = await fetch('api/users', requestOptions)
     .then(response => response.json())
     .then(data => {
@@ -99,7 +100,7 @@ createTrailForm.addEventListener('submit', async (e) => {
 
     //api call
 
-    fetch('/api/trails', {
+    const data= await fetch('/api/trails', {
         method: 'POST', 
         body: formData
     })
@@ -142,31 +143,101 @@ function closeAllModals () {
     })
 };
 
+//add favorite trail
+//get favorites by user from api
+async function getFav() {
+    const requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+const favButton = document.querySelectorAll('.btn.favBtn');
+const favByUser = await fetch("/api/favorites", requestOptions)
+    .then(response => response.json())
+    // .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+    //iterate through trail tiles by favorite button
+    favButton.forEach(favorite => {
+
+        const spanQuery = favorite.querySelector('span')
+
+        //assessing if trail is in user's favorites and updating icon if so
+        favByUser.forEach(fav => {
+            if(fav.trail_id == favorite.id && fav.favorite){
+            heartToggle(spanQuery)
+            }
+        })
+
+        //click behavior: add/remove favorites
+        favorite.addEventListener('click', async (e) => {
+        e.preventDefault();
+    
+        const addFav = spanQuery.classList.contains("glyphicon-heart-empty")
+
+        const favData = {
+            favorite: addFav,
+            trail_id: favorite.id
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(favData)
+        };
+    
+        const data = await fetch('api/favorites', requestOptions)
+        .then(response => response.json())
+        .catch(err => console.log(err));
+        if(!data.message){
+            heartToggle(spanQuery);
+        }else{
+            alert(data.message)
+        }
+        });
+
+    });
+};
+
+const heartToggle = function(span){
+    if(span.classList.contains("glyphicon-heart-empty")){
+        span.classList.remove("glyphicon-heart-empty");
+        span.classList.add("glyphicon-heart");
+    } else {
+        span.classList.remove("glyphicon-heart");
+        span.classList.add("glyphicon-heart-empty");
+    }
+};
+
+getFav();
 //Add Rating
 const createRatingForm = document.getElementById('createRatingForm');
 const ratingValue = createUserForm.querySelector('.star-rating__input');
 
-createRatingForm.addEventListener('radio', async (e) => {
-    e.preventDefault();
-   
-    //logic to get form data
-    const formData = {
-        rating: ratingValue.value,
-    }
-    //api call
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-    };
-    console.log(requestOptions);
-    //validate success -- need to figure out error handling
-    const data = await fetch('api/rating/:id', requestOptions)
-    .then(response => response.json())
-    .then(data => {
+if(createRatingForm) {
+    createRatingForm.addEventListener('radio', async (e) => {
+        e.preventDefault();
+       
+        //logic to get form data
+        const formData = {
+            rating: ratingValue.value,
+        }
+        //api call
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        };
+        console.log(requestOptions);
+        //validate success -- need to figure out error handling
+        const data = await fetch('api/rating/:id', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            return data
+        })
+        .catch(err => console.log(err));
         console.log(data);
-        return data
-    })
-    .catch(err => console.log(err));
-    console.log(data);
-});
+    });
+}
+

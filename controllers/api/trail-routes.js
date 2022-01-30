@@ -3,7 +3,7 @@ const { download } = require('express/lib/response');
 const firebase = require('firebase');
 const multer  = require('multer');
 const upload = multer();
-const { Trail, User, Comment, Rating } = require('../../models');
+const { Trail, User, Comment, Rating, Favorite } = require('../../models');
 const sequelize = require('../../config/connection');
 const Sequelize = require('sequelize');
 const withAuth = require('../../utils/auth');
@@ -108,9 +108,13 @@ router.get('/', (req, res) => {
             //     attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
             // },
             {
-                model: User,
-                attributes: ['username']
+                model: Favorite,
+                attributes: ['id', 'favorite', 'user_id', 'trail_id']
             }
+            // {
+            //     model: User,
+            //     attributes: ['username']
+            // }
         ]
     })
     .then(dbTrailData => { res.json(dbTrailData); })

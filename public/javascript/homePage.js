@@ -32,6 +32,7 @@ loginForm.addEventListener('submit', async (e) => {
     } else {
     //close modal
     closeAllModals();
+    window.location.reload();
     };
 });
 

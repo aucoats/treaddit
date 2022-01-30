@@ -1,4 +1,4 @@
-const { response } = require("express");
+// const { response } = require("express");
 
 //add delete trail api fetch
 const deleteTrail = document.querySelector("#destroyTrailBtn");

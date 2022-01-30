@@ -59,6 +59,4 @@ hbs.handlebars.registerHelper('difficultyLevel', function (difficulty) {
     }
 });
 
-/* Create a handle to get the value of rating, and send the mount of stars back */
-
 module.exports = router;

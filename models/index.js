@@ -10,8 +10,9 @@ User.hasMany(Trail, {
 });
 
 User.hasMany(Favorite, {
-    foreignKey: 'posted_by'
+    foreignKey: 'user_id'
 });
+
 Trail.belongsTo(User, {
     foreignKey: 'user_id',
     onDelete: 'SET NULL'

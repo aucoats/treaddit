@@ -68,50 +68,6 @@ router.get('/', (req, res) => {
     });
 });
 
-// router.get('/:id', (req, res) => {
-//     Trail.findOne({
-//         where: {
-//             id: req.params.id
-//         },
-//         attributes: [
-//             'id',
-//             'name',
-//             'length',
-//             'dog_friendly',
-//             'bike_friendly',
-//             'difficulty',
-//             'img_ref',
-//             'description',
-//         ],
-//         include: [
-//             {
-//                 model: Comment,
-//                 attributes: ['id', 'comment_text', 'trail_id', 'user_id', 'created_at'],
-//                 include: {
-//                     model: User,
-//                     attributes: ['username']
-//                 }
-//             },
-//             // {
-//             //     model: Rating,
-//             //     attributes: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'avgRating']]
-//             // },
-//             // {
-//             //     model: User,
-//             //     attributes: ['username']
-//             // }
-//         ]
-//     }).then(dbTrailData => {
-//         const trail = dbTrailData.get({ plain: true });
-//         console.log('trail:', trail)
-//         res.render('comment', {trail, loggedIn: req.session.loggedIn});
-//     }) .catch(err => {
-//         console.log(err);
-//         res.status(500).json(err);
-//     });
-
-// });
-
 module.exports = router; 
 
 

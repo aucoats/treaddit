@@ -18,10 +18,21 @@ loginForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(formData)
     };
 
+    let data; 
+
     //validate success
-    const data = await fetch('api/users/login', requestOptions)
-    .then(response => response)
-    .catch(err => console.log(err));
+    if (window.location.href.indexOf("comment") != -1) {
+        data = await fetch('../api/users/login', requestOptions)
+        .then(response => response)
+        .catch(err => console.log(err));
+        
+    } else {
+        data = await fetch('/api/users/login', requestOptions)
+        .then(response => response)
+        .catch(err => console.log(err));
+      
+    }
+    
 
     const resolvedData  = await data.json();
 

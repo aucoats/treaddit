@@ -5,34 +5,34 @@ createCommentForm.addEventListener('submit', async (e) => {
     const trail_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
     ];
-    var starRating; 
+    // var starRating; 
 
-    if (document.querySelector("#rating-1").checked) {
-        starRating = 1;
-    } else if (document.querySelector("#rating-2").checked) {
-        starRating = 2;
-    } else if (document.querySelector("#rating-3").checked) {
-        starRating = 3;
-    } else if (document.querySelector("#rating-4").checked) {
-        starRating = 4;
-    } else if (document.querySelector("#rating-5").checked) {
-        starRating = 5;
-    }
+    // if (document.querySelector("#rating-1").checked) {
+    //     starRating = 1;
+    // } else if (document.querySelector("#rating-2").checked) {
+    //     starRating = 2;
+    // } else if (document.querySelector("#rating-3").checked) {
+    //     starRating = 3;
+    // } else if (document.querySelector("#rating-4").checked) {
+    //     starRating = 4;
+    // } else if (document.querySelector("#rating-5").checked) {
+    //     starRating = 5;
+    // }
 
-    const ratingData = {
-        rating: starRating,
-        trail_id: trail_id
-    }
+    // const ratingData = {
+    //     rating: starRating,
+    //     trail_id: trail_id
+    // }
 
-    const ratingRequest = {
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(ratingData)
-    }
+    // const ratingRequest = {
+    //     method: 'POST', 
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(ratingData)
+    // }
 
-    await fetch('api/ratings', ratingRequest)
-        .then(response => response.json())
-        .catch(err => console.log(err));
+    // await fetch('api/ratings', ratingRequest)
+    //     .then(response => response.json())
+    //     .catch(err => console.log(err));
 
     // const resolvedRatingDataPost = await ratingDataPost.json();
     // alert(resolvedRatingDataPost.message);
@@ -60,15 +60,15 @@ createCommentForm.addEventListener('submit', async (e) => {
     };
 
     //validate success, reset form
-    const data = await fetch('api/comments', requestOptions)
+    const data = await fetch('../api/comments', requestOptions)
     .then(response => {
         response.json()
         window.location.reload()
     })
     .catch(err => console.log(err));
 
-    const resolvedData  = await data.json();
-    alert(resolvedData.message);
+    // const resolvedData  = await data.json();
+    // alert(resolvedData.message);
 
 
 })
